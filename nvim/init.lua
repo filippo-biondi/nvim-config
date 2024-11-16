@@ -96,6 +96,12 @@ g.editorconfig = true
 
 vim.opt.colorcolumn = '100'
 
+cmd.colorscheme "catppuccin-mocha"
+
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
+
+
 -- Native plugins
 cmd.filetype('plugin', 'indent', 'on')
 cmd.packadd('cfilter') -- Allows filtering the quickfix list with :cfdo
