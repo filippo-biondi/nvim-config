@@ -7,6 +7,9 @@ local g = vim.g
 -- g.mapleader = ' '
 -- g.maplocalleader = ' '
 
+g.loaded_netrw = 1
+g.loaded_netrwPlugin = 1
+
 opt.compatible = false
 
 -- Enable true colour support
@@ -102,10 +105,6 @@ g.editorconfig = true
 vim.opt.colorcolumn = '100'
 
 cmd.colorscheme "catppuccin-mocha"
-
--- g.loaded_netrw = 1
--- g.loaded_netrwPlugin = 1
-
 
 -- Native plugins
 cmd.filetype('plugin', 'indent', 'on')
