@@ -10,6 +10,11 @@ local g = vim.g
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
 
+if vim.fn.argc() == 0 then
+    cmd('cd ' .. fn.expand('%:p:h'))
+    cmd('edit .')
+end
+
 require("nvim-tree").setup({
   sort = {
     sorter = "case_sensitive",
@@ -30,11 +35,6 @@ opt.compatible = false
 -- Enable true colour support
 if fn.has('termguicolors') then
   opt.termguicolors = true
-end
-
-if vim.fn.argc() == 0 then
-    cmd('cd ' .. fn.expand('%:p:h'))
-    cmd('edit .')
 end
 
 -- See :h <option> to see what the options do
