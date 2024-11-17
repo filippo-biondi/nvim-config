@@ -1,7 +1,7 @@
--- if vim.g.did_load_nvim_tree_plugin then
---   return
--- end
--- vim.g.did_load_nvim_tree_plugin = true
+if vim.g.did_load_nvim_tree_plugin then
+  return
+end
+vim.g.did_load_nvim_tree_plugin = true
 -- 
 -- require("nvim-tree").setup({
 --   sort = {
@@ -17,4 +17,6 @@
 --     dotfiles = true,
 --   },
 -- })
-require("nvim-tree").setup()
+local nvim_tree = require("nvim-tree")
+
+nvim_tree.setup()
