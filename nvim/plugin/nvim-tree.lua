@@ -1,3 +1,8 @@
+if vim.g.did_load_nvim_tree_plugin then
+  return
+end
+vim.g.did_load_nvim_tree_plugin = true
+
 require("nvim-tree").setup({
   sort = {
     sorter = "case_sensitive",

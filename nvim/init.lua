@@ -14,6 +14,11 @@ if fn.has('termguicolors') then
   opt.termguicolors = true
 end
 
+if vim.fn.argc() == 0 then
+    cmd('cd ' .. fn.expand('%:p:h'))
+    cmd('edit .')
+end
+
 -- See :h <option> to see what the options do
 
 -- Search down into subfolders
