@@ -14,10 +14,10 @@ if fn.has('termguicolors') then
   opt.termguicolors = true
 end
 
-if vim.fn.argc() == 0 then
-    cmd('cd ' .. fn.expand('%:p:h'))
-    cmd('edit .')
-end
+-- if vim.fn.argc() == 0 then
+--     cmd('cd ' .. fn.expand('%:p:h'))
+--     cmd('edit .')
+-- end
 
 -- See :h <option> to see what the options do
 
@@ -103,8 +103,8 @@ vim.opt.colorcolumn = '100'
 
 cmd.colorscheme "catppuccin-mocha"
 
-g.loaded_netrw = 1
-g.loaded_netrwPlugin = 1
+-- g.loaded_netrw = 1
+-- g.loaded_netrwPlugin = 1
 
 
 -- Native plugins
