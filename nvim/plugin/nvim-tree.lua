@@ -17,3 +17,4 @@
 --     dotfiles = true,
 --   },
 -- })
+require("nvim-tree").setup()
