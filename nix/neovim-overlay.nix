@@ -32,6 +32,7 @@ with final.pkgs.lib; let
     nvim-web-devicons
     nvim-tree-lua
     nvim-treesitter.withAllGrammars
+    nvim-treesitter-parsers.foam
     luasnip # snippets | https://github.com/l3mon4d3/luasnip/
     # nvim-cmp (autocompletion) and extensions
     nvim-cmp # https://github.com/hrsh7th/nvim-cmp
@@ -44,6 +45,7 @@ with final.pkgs.lib; let
     cmp-nvim-lua # neovim lua API as completion source | https://github.com/hrsh7th/cmp-nvim-lua/
     cmp-cmdline # cmp command line suggestions
     cmp-cmdline-history # cmp command line history suggestions
+    nvim-lspconfig
     # ^ nvim-cmp extensions
     # git integration plugins
     diffview-nvim # https://github.com/sindrets/diffview.nvim/
@@ -90,6 +92,8 @@ with final.pkgs.lib; let
     # language servers, etc.
     lua-language-server
     nil # nix LSP
+    pyright
+    clang-tools
   ];
 in {
   # This is the neovim derivation
