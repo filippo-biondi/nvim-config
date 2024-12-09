@@ -5,6 +5,7 @@ vim.g.did_load_lualine_plugin = true
 
 local navic = require('nvim-navic')
 navic.setup {}
+local hydra_statusline = require('hydra.statusline')
 
 ---Indicators for special modes,
 ---@return string status
@@ -30,6 +31,25 @@ end
 require('lualine').setup {
   globalstatus = true,
   sections = {
+    lualine_a = {
+        {
+          'mode',
+          fmt = function(str)
+            print(vim.inspect(hydra_statusline))
+            if hydra_statusline.is_active() == true and vim.fn.mode() == "n" then
+              return hydra_statusline.get_name()
+            end
+            return str
+          end,
+
+          color = function(tb)
+            if hydra_statusline.is_active() == true and vim.fn.mode() == "n" then
+              return {bg = hydra_statusline.get_color()}
+            end
+            return tb
+          end,
+        }
+      },
     lualine_c = {
       -- nvim-navic
       { navic.get_location, cond = navic.is_available },

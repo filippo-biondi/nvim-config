@@ -33,6 +33,7 @@ with final.pkgs.lib; let
     nvim-tree-lua
     nvim-treesitter.withAllGrammars
     nvim-treesitter-parsers.foam
+    nvim-treesitter-parsers.python
     luasnip # snippets | https://github.com/l3mon4d3/luasnip/
     # nvim-cmp (autocompletion) and extensions
     nvim-cmp # https://github.com/hrsh7th/nvim-cmp
@@ -46,6 +47,14 @@ with final.pkgs.lib; let
     cmp-cmdline # cmp command line suggestions
     cmp-cmdline-history # cmp command line history suggestions
     nvim-lspconfig
+    nvim-dap
+    nvim-dap-ui
+    nvim-dap-python
+    nvim-dap-virtual-text
+    hydra-nvim
+    nvim-nio
+    # noice-nvim
+    nvim-notify
     # ^ nvim-cmp extensions
     # git integration plugins
     diffview-nvim # https://github.com/sindrets/diffview.nvim/
@@ -73,6 +82,7 @@ with final.pkgs.lib; let
     nvim-treesitter-textobjects # https://github.com/nvim-treesitter/nvim-treesitter-textobjects/
     nvim-ts-context-commentstring # https://github.com/joosepalviste/nvim-ts-context-commentstring/
     # ^ navigation/editing enhancement plugins
+    todo-comments-nvim
     # Useful utilities
     nvim-unception # Prevent nested neovim sessions | nvim-unception
     # ^ Useful utilities
@@ -94,6 +104,7 @@ with final.pkgs.lib; let
     nil # nix LSP
     pyright
     clang-tools
+    ripgrep
   ];
 in {
   # This is the neovim derivation

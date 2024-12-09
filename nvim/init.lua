@@ -4,8 +4,8 @@ local opt = vim.o
 local g = vim.g
 
 -- <leader> key. Defaults to `\`. Some people prefer space.
--- g.mapleader = ' '
--- g.maplocalleader = ' '
+g.mapleader = ' '
+g.maplocalleader = ' '
 
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
@@ -31,6 +31,7 @@ require("nvim-tree").setup({
 })
 
 opt.compatible = false
+opt.wrap = false
 
 -- Enable true colour support
 if fn.has('termguicolors') then
@@ -45,7 +46,7 @@ opt.path = vim.o.path .. '**'
 opt.number = true
 opt.relativenumber = true
 opt.cursorline = true
-opt.lazyredraw = true
+-- opt.lazyredraw = true
 opt.showmatch = true -- Highlight matching parentheses, etc
 opt.incsearch = true
 opt.hlsearch = true
