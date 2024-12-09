@@ -35,7 +35,7 @@ require('lualine').setup {
         {
           'mode',
           fmt = function(str)
-            print(vim.inspect(hydra_statusline))
+            -- print(vim.inspect(hydra_statusline))
             if hydra_statusline.is_active() == true and vim.fn.mode() == "n" then
               return hydra_statusline.get_name()
             end
