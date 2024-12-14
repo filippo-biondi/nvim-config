@@ -35,7 +35,6 @@ require('lualine').setup {
         {
           'mode',
           fmt = function(str)
-            -- print(vim.inspect(hydra_statusline))
             if hydra_statusline.is_active() == true and vim.fn.mode() == "n" then
               return hydra_statusline.get_name()
             end
@@ -103,5 +102,5 @@ require('lualine').setup {
       },
     },
   },
-  extensions = { 'fugitive', 'fzf', 'toggleterm', 'quickfix' },
+  extensions = { 'fugitive', 'fzf', 'toggleterm', 'quickfix', 'nvim-tree', 'nvim-dap-ui' },
 }
