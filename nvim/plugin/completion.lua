@@ -9,12 +9,6 @@ local luasnip = require('luasnip')
 
 vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
-local function has_words_before()
-  local unpack_ = unpack or table.unpack
-  local line, col = unpack_(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
-end
-
 ---@param source string|table
 local function complete_with_source(source)
   if type(source) == 'string' then
@@ -23,6 +17,54 @@ local function complete_with_source(source)
     cmp.complete { config = { sources = { source } } }
   end
 end
+
+commonMapping = {
+    ['<C-Up>'] = cmp.mapping(function(_)
+      if cmp.visible() then
+        cmp.scroll_docs(-4)
+      else
+        complete_with_source('buffer')
+      end
+    end, { 'i', 'c', 's' }),
+    ['<C-Down>'] = cmp.mapping(function(_)
+      if cmp.visible() then
+        cmp.scroll_docs(4)
+      else
+        complete_with_source('path')
+      end
+    end, { 'i', 'c', 's' }),
+    ['<Down>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, { 'i', 'c', 's' }),
+    ['<Up>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 'c', 's' }),
+    -- toggle completion
+    ['<Esc>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.close()
+      else
+        fallback()
+      end
+    end, { 'i', 'c', 's' }),
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.confirm({select = true})
+      else
+        fallback()
+      end
+    end, { 'i', 'c', 's' }),
+  }
 
 cmp.setup {
   completion = {
@@ -52,55 +94,9 @@ cmp.setup {
       require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
-  mapping = {
-    ['<C-b>'] = cmp.mapping(function(_)
-      if cmp.visible() then
-        cmp.scroll_docs(-4)
-      else
-        complete_with_source('buffer')
-      end
-    end, { 'i', 'c', 's' }),
-    ['<C-f>'] = cmp.mapping(function(_)
-      if cmp.visible() then
-        cmp.scroll_docs(4)
-      else
-        complete_with_source('path')
-      end
-    end, { 'i', 'c', 's' }),
-    ['<Down>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      -- expand_or_jumpable(): Jump outside the snippet region
-      -- expand_or_locally_jumpable(): Only jump inside the snippet region
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      elseif has_words_before() then
-        cmp.complete()
-      else
-        fallback()
-      end
-    end, { 'i', 'c', 's' }),
-    ['<Up>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 'c', 's' }),
-    -- toggle completion
-    ['<C-e>'] = cmp.mapping(function(_)
-      if cmp.visible() then
-        cmp.close()
-      else
-        cmp.complete()
-      end
-    end, { 'i', 'c', 's' }),
-    ['<Tab>'] = cmp.mapping.confirm {
-      select = true,
-    },
-  },
+
+  mapping = commonMapping,
+
   sources = cmp.config.sources {
     -- The insertion order influences the priority of the sources
     { name = 'nvim_lsp', keyword_length = 3 },
@@ -112,8 +108,7 @@ cmp.setup {
     return vim.bo[0].buftype ~= 'prompt'
   end,
   experimental = {
-    native_menu = false,
-    ghost_text = true,
+    ghost_text = false,
   },
 }
 
@@ -127,20 +122,17 @@ cmp.setup.filetype('lua', {
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = commonMapping,
   sources = {
     { name = 'nvim_lsp_document_symbol', keyword_length = 3 },
     { name = 'buffer' },
     { name = 'cmdline_history' },
   },
-  view = {
-    entries = { name = 'wildmenu', separator = '|' },
-  },
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = commonMapping,
   sources = cmp.config.sources {
     { name = 'cmdline' },
     { name = 'cmdline_history' },
