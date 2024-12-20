@@ -97,6 +97,8 @@ with final.pkgs.lib; let
     # ^ bleeding-edge plugins from flake inputs
     which-key-nvim
     copilot-vim
+    vimtex
+    image-nvim
   ];
 
   extraPackages = with pkgs; [
@@ -107,6 +109,7 @@ with final.pkgs.lib; let
     clang-tools
     ripgrep
     fd
+    imagemagick
   ];
 in {
   # This is the neovim derivation
