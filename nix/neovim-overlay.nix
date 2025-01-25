@@ -10,6 +10,16 @@ with final.pkgs.lib; let
       version = src.lastModifiedDate;
     };
 
+  kitty-scrollback = pkgs.vimUtils.buildVimPlugin {
+    name = "kitty-scrollback";
+    src = pkgs.fetchFromGitHub {
+      owner = "mikesmithgh";
+      repo = "kitty-scrollback.nvim";
+      rev = "fd9f83f3f1141ef65de73fbe962f6c606ef02da8";
+      hash = "sha256-0OPNHWR/qCbMKDQE6Pbt0Ew9QCm2ZSeZq4s9OL2rj04=";
+    };
+  };
+
   # Make sure we use the pinned nixpkgs instance for wrapNeovimUnstable,
   # otherwise it could have an incompatible signature when applying this overlay.
   pkgs-wrapNeovim = inputs.nixpkgs.legacyPackages.${pkgs.system};
@@ -99,6 +109,7 @@ with final.pkgs.lib; let
     copilot-vim
     vimtex
     image-nvim
+    kitty-scrollback
   ];
 
   extraPackages = with pkgs; [
