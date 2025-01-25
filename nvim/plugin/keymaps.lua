@@ -192,6 +192,8 @@ keymap.set('i', '<C-BS>', '<C-w>', { desc = 'delete untill stard of word' })
 keymap.set('i', '<C-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
 keymap.set('n', '<ESC><ESC>', ':noh | nohlsearch<CR>', { desc = 'remove search highlight', silent = true })
 
+keymap.set({'n', 'v'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
+
 -- keymap.set({'n', 'v', 'i'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
 
 --- Disabled keymaps [enable at your own risk]

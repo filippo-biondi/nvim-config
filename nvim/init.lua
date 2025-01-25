@@ -40,6 +40,7 @@ end
 
 -- See :h <option> to see what the options do
 
+
 -- Search down into subfolders
 opt.path = vim.o.path .. '**'
 
@@ -121,6 +122,8 @@ g.editorconfig = true
 vim.opt.colorcolumn = '100'
 
 cmd.colorscheme "catppuccin-mocha"
+
+vim.opt.iskeyword:remove("_")
 
 -- Native plugins
 cmd.filetype('plugin', 'indent', 'on')
