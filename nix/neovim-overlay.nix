@@ -99,6 +99,7 @@ with final.pkgs.lib; let
     copilot-vim
     vimtex
     nvim-lastplace
+    distant-nvim
   ];
 
   extraPackages = with pkgs; [
@@ -109,6 +110,7 @@ with final.pkgs.lib; let
     clang-tools
     ripgrep
     fd
+    distant
   ];
 in {
   # This is the neovim derivation
