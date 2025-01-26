@@ -98,7 +98,7 @@ with final.pkgs.lib; let
     which-key-nvim
     copilot-vim
     vimtex
-    image-nvim
+    nvim-lastplace
   ];
 
   extraPackages = with pkgs; [
@@ -109,7 +109,6 @@ with final.pkgs.lib; let
     clang-tools
     ripgrep
     fd
-    imagemagick
   ];
 in {
   # This is the neovim derivation
