@@ -11,3 +11,11 @@ require("dap-python").setup("python3")
 require("dapui").setup()
 require("nvim-dap-virtual-text").setup()
 require("nvim-lastplace").setup()
+-- require("auto-session").setup {
+--       suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
+-- }
+require("distant"):setup({
+    manager = {
+        user = true
+    }
+})

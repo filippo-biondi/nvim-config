@@ -99,7 +99,9 @@ with final.pkgs.lib; let
     copilot-vim
     vimtex
     nvim-lastplace
+    # auto-session
     distant-nvim
+    neorg
   ];
 
   extraPackages = with pkgs; [

@@ -51,6 +51,7 @@ opt.cursorline = true
 opt.showmatch = true -- Highlight matching parentheses, etc
 opt.incsearch = true
 opt.hlsearch = true
+-- opt.scrolloff = 10
 
 opt.spell = true
 opt.spelllang = 'en'
