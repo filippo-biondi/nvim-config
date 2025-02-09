@@ -50,7 +50,7 @@ commonMapping = {
       end
     end, { 'i', 'c', 's' }),
     -- toggle completion
-    ['<Esc>'] = cmp.mapping(function(fallback)
+    ['<C-c>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.close()
       else
