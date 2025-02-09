@@ -102,6 +102,7 @@ with final.pkgs.lib; let
     # auto-session
     distant-nvim
     neorg
+    nvim-autopairs
   ];
 
   extraPackages = with pkgs; [

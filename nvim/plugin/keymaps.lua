@@ -194,6 +194,11 @@ keymap.set('n', '<ESC><ESC>', ':noh | nohlsearch<CR>', { desc = 'remove search h
 
 keymap.set({'n', 'v'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
 
+keymap.set({'n', 'v'}, '<C-Left>', 'b', { desc = 'move one wold left' })
+keymap.set({'n', 'v'}, '<C-Right>', 'w', { desc = 'move one wold left' })
+
+keymap.set('i', '<C-w>', '<ESC><C-w>', { noremap = true, silent = true })
+
 -- keymap.set({'n', 'v', 'i'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
 
 --- Disabled keymaps [enable at your own risk]

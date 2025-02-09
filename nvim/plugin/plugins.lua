@@ -19,3 +19,5 @@ require("distant"):setup({
         user = true
     }
 })
+
+require("nvim-autopairs").setup()
