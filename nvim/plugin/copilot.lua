@@ -1,4 +1,8 @@
-vim.keymap.set('i', '<Right>', 'copilot#Accept("\\<CR>")', {
+vim.keymap.set('i', '<C-Right>', 'copilot#AcceptLine("<C-Right>")', {
+  expr = true,
+  replace_keycodes = false
+})
+vim.keymap.set('i', '<Right>', 'copilot#AcceptWord("<Right>")', {
   expr = true,
   replace_keycodes = false
 })
