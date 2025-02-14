@@ -1,3 +1,7 @@
+vim.keymap.set('i', '<C-Down>', 'copilot#Accept("<C-Down>")', {
+  expr = true,
+  replace_keycodes = false
+})
 vim.keymap.set('i', '<C-Right>', 'copilot#AcceptLine("<C-Right>")', {
   expr = true,
   replace_keycodes = false
