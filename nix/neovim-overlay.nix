@@ -94,6 +94,8 @@ with final.pkgs.lib; let
     distant-nvim
     neorg
     nvim-autopairs
+    dial-nvim
+    vim-better-whitespace
   ];
 
   extraPackages = with pkgs; [
