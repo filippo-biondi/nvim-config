@@ -32,6 +32,12 @@ blink.setup({
     -- Set Nerd Font variant ('mono' or 'normal')
     nerd_font_variant = 'normal',
   },
+  signature = {
+    enabled = true,
+    window = {
+      show_documentation = false,
+    },
+  },
   -- Configure keybindings
   keymap = {
     ['<Up>'] = { 'select_prev', 'fallback' },
@@ -41,7 +47,3 @@ blink.setup({
     ['<C-Down>'] = { 'scroll_documentation_down', 'fallback' },
   },
 })
-
-local keymap = vim.keymap
-
-
