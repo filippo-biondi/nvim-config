@@ -1,2 +1,5 @@
-require'lspconfig'.pyright.setup{}
-require'lspconfig'.clangd.setup{}
+local lspconfig = require('lspconfig')
+local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+lspconfig.pyright.setup{ capabilities = capabilities }
+lspconfig.clangd.setup{ capabilities = capabilities }
