@@ -1,7 +1,10 @@
 # This overlay, when applied to nixpkgs, adds the final neovim derivation to nixpkgs.
 {inputs}: final: prev:
 with final.pkgs.lib; let
-  pkgs = final;
+  pkgs = import inputs.nixpkgs {
+    system = final.system;
+    config.allowUnfree = true;
+  };
 
   # Use this to create a plugin from a flake input
   mkNvimPlugin = src: pname:
@@ -10,12 +13,8 @@ with final.pkgs.lib; let
       version = src.lastModifiedDate;
     };
 
-  # Make sure we use the pinned nixpkgs instance for wrapNeovimUnstable,
-  # otherwise it could have an incompatible signature when applying this overlay.
-  pkgs-wrapNeovim = inputs.nixpkgs.legacyPackages.${pkgs.system};
-
   # This is the helper function that builds the Neovim derivation.
-  mkNeovim = pkgs.callPackage ./mkNeovim.nix { inherit pkgs-wrapNeovim; };
+  mkNeovim = pkgs.callPackage ./mkNeovim.nix { inherit pkgs; };
 
   # A plugin can either be a package or an attrset, such as
   # { plugin = <plugin>; # the package, e.g. pkgs.vimPlugins.nvim-cmp
@@ -34,6 +33,9 @@ with final.pkgs.lib; let
     nvim-treesitter.withAllGrammars
     nvim-treesitter-parsers.foam
     nvim-treesitter-parsers.python
+    nvim-treesitter-parsers.markdown
+    nvim-treesitter-parsers.latex
+    nvim-treesitter-parsers.html
     luasnip # snippets | https://github.com/l3mon4d3/luasnip/
     blink-cmp
     lspkind-nvim # vscode-like LSP pictograms | https://github.com/onsails/lspkind.nvim/
@@ -96,6 +98,7 @@ with final.pkgs.lib; let
     nvim-autopairs
     dial-nvim
     vim-better-whitespace
+    render-markdown-nvim
   ];
 
   extraPackages = with pkgs; [
@@ -107,6 +110,7 @@ with final.pkgs.lib; let
     ripgrep
     fd
     distant
+    python3Packages.pylatexenc
   ];
 in {
   # This is the neovim derivation
