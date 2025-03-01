@@ -1,4 +1,5 @@
 blink = require('blink.cmp')
+
 blink.setup({
   -- Enable auto-bracket insertion based on semantic tokens
   completion = {
