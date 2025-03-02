@@ -24,6 +24,17 @@ with final.pkgs.lib; let
     };
   };
 
+  stay-centered-nvim-custom = pkgs.vimUtils.buildVimPlugin {
+    pname = "stay-centered-custom";
+    version = "1.0.0"; # You can set a dummy version
+    src = pkgs.fetchFromGitHub {
+      owner = "filippo-biondi";
+      repo = "stay-centered.nvim";
+      rev = "af331fd3832bbe7cabf14f4cacc8629ab25fdea5";
+      sha256 = "sha256-gsFvoj5cqXMaYf8veBvQCNjW4rbjjnJyAw2gZnl8dCA=";
+    };
+  };
+
   # This is the helper function that builds the Neovim derivation.
   mkNeovim = pkgs.callPackage ./mkNeovim.nix { inherit pkgs; };
 
@@ -111,6 +122,7 @@ with final.pkgs.lib; let
     vim-better-whitespace
     render-markdown-nvim-custom
     nabla-nvim
+    stay-centered-nvim-custom
   ];
 
   extraPackages = with pkgs; [

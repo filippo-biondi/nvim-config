@@ -1,4 +1,5 @@
-blink = require('blink.cmp')
+local blink = require('blink.cmp')
+local stay_centered = require('stay-centered')
 
 blink.setup({
   -- Enable auto-bracket insertion based on semantic tokens

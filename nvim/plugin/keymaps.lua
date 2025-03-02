@@ -181,12 +181,12 @@ end
 
 keymap.set('n', '<leader>S', toggle_spell_check, { noremap = true, silent = true, desc = 'toggle [S]pell' })
 
-keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'move [d]own half-page and center' })
-keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'move [u]p half-page and center' })
-keymap.set('n', '<C-Up>', '<C-u>zz', { desc = 'move [u]p half-page and center' })
-keymap.set('n', '<C-Down>', '<C-d>zz', { desc = 'move [d]own half-page and center' })
-keymap.set('n', '<C-f>', '<C-f>zz', { desc = 'move DOWN [f]ull-page and center' })
-keymap.set('n', '<C-b>', '<C-b>zz', { desc = 'move UP full-page and center' })
+-- keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'move [d]own half-page and center' })
+-- keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'move [u]p half-page and center' })
+keymap.set('n', '<C-Up>', '<C-u>', { desc = 'move [u]p half-page and center' })
+keymap.set('n', '<C-Down>', '<C-d>', { desc = 'move [d]own half-page and center' })
+-- keymap.set('n', '<C-f>', '<C-f>zz', { desc = 'move DOWN [f]ull-page and center' })
+-- keymap.set('n', '<C-b>', '<C-b>zz', { desc = 'move UP full-page and center' })
 
 keymap.set('i', '<C-BS>', '<C-w>', { desc = 'delete untill stard of word' })
 keymap.set('i', '<C-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
