@@ -70,4 +70,4 @@ local function neorg_return()
 end
 
 vim.keymap.set("n", "<leader>nw", select_workspace, { desc = "Select Neorg Workspace" })
-vim.keymap.set("n", "<leader>nc", neorg_return, { desc = "Select Neorg Workspace" })
+vim.keymap.set("n", "<leader>nc", neorg_return, { desc = "Close open notes" })
