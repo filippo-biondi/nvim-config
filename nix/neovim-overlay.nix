@@ -56,8 +56,13 @@ with final.pkgs.lib; let
     nvim-treesitter-parsers.foam
     nvim-treesitter-parsers.python
     nvim-treesitter-parsers.markdown
+    nvim-treesitter-parsers.markdown_inline
     nvim-treesitter-parsers.latex
     nvim-treesitter-parsers.html
+    nvim-treesitter-parsers.bash
+    nvim-treesitter-parsers.lua
+    nvim-treesitter-parsers.regex
+    nvim-treesitter-parsers.json
     friendly-snippets
     blink-cmp
     lspkind-nvim # vscode-like LSP pictograms | https://github.com/onsails/lspkind.nvim/
@@ -68,7 +73,8 @@ with final.pkgs.lib; let
     nvim-dap-virtual-text
     hydra-nvim
     nvim-nio
-    # noice-nvim
+    noice-nvim
+    nui-nvim
     nvim-notify
     # ^ nvim-cmp extensions
     # git integration plugins
