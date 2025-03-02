@@ -18,6 +18,13 @@ blink.setup({
   sources = {
     -- Remove 'buffer' if you don't want text completions, by default it's only enabled when LSP returns no items
     default = { 'lsp', 'path', 'snippets', 'buffer' },
+    providers = {
+      markdown = {
+        name = 'RenderMarkdown',
+        module = 'render-markdown.integ.blink',
+        fallbacks = { 'lsp' },
+      },
+    },
   },
   -- Configure snippet expansion
   snippets = {

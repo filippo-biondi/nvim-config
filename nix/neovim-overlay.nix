@@ -13,6 +13,17 @@ with final.pkgs.lib; let
       version = src.lastModifiedDate;
     };
 
+  render-markdown-nvim-custom = pkgs.vimUtils.buildVimPlugin {
+    pname = "render-markdown-nvim-custom";
+    version = "1.0.0"; # You can set a dummy version
+    src = pkgs.fetchFromGitHub {
+      owner = "filippo-biondi";
+      repo = "render-markdown.nvim";
+      rev = "31d86e4992d705dcb098c21455b15682d992d6bf";
+      sha256 = "sha256-GR48F5m4s9BVyxdlu+2wHkXCKuY8Kxra76m4zxsO2vI=";
+    };
+  };
+
   # This is the helper function that builds the Neovim derivation.
   mkNeovim = pkgs.callPackage ./mkNeovim.nix { inherit pkgs; };
 
@@ -98,7 +109,8 @@ with final.pkgs.lib; let
     nvim-autopairs
     dial-nvim
     vim-better-whitespace
-    render-markdown-nvim
+    render-markdown-nvim-custom
+    nabla-nvim
   ];
 
   extraPackages = with pkgs; [
