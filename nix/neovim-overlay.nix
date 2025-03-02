@@ -47,7 +47,7 @@ with final.pkgs.lib; let
     nvim-treesitter-parsers.markdown
     nvim-treesitter-parsers.latex
     nvim-treesitter-parsers.html
-    luasnip # snippets | https://github.com/l3mon4d3/luasnip/
+    friendly-snippets
     blink-cmp
     lspkind-nvim # vscode-like LSP pictograms | https://github.com/onsails/lspkind.nvim/
     nvim-lspconfig

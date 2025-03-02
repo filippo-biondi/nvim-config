@@ -26,13 +26,6 @@ blink.setup({
       },
     },
   },
-  -- Configure snippet expansion
-  snippets = {
-    expand = function(snippet, _)
-      require('luasnip').lsp_expand(snippet)
-    end,
-  },
-  -- Adjust appearance settings
   appearance = {
     -- Use nvim-cmp's highlight groups as fallback
     use_nvim_cmp_as_default = false,
@@ -52,5 +45,7 @@ blink.setup({
     ['<Tab>'] = { 'accept', 'fallback' },
     ['<C-Up>'] = { 'scroll_documentation_up', 'fallback' },
     ['<C-Down>'] = { 'scroll_documentation_down', 'fallback' },
+    ['<C-N>'] = { 'snippet_forward', 'fallback' },
+    ['<C-B>'] = { 'snippet_backward', 'fallback' },
   },
 })
