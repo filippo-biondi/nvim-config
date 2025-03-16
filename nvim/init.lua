@@ -7,28 +7,10 @@ local g = vim.g
 g.mapleader = ' '
 g.maplocalleader = ' '
 
-g.loaded_netrw = 1
-g.loaded_netrwPlugin = 1
-
 if vim.fn.argc() == 0 then
     cmd('cd ' .. fn.expand('%:p:h'))
     cmd('edit .')
 end
-
-require("nvim-tree").setup({
-  sort = {
-    sorter = "case_sensitive",
-  },
-  view = {
-    width = 30,
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
-})
 
 opt.compatible = false
 opt.wrap = false

@@ -201,6 +201,9 @@ keymap.set({'i', 't'}, '<C-w>', '<ESC><C-w>', { noremap = true, silent = true })
 
 keymap.set('n', "A", [[ getline('.') == '' ? 'cc' : 'A' ]], { expr = true, noremap = true, silent = true })
 
+-- map <C-T> to open a new terminal
+keymap.set('n', '<C-t>', ':term<CR>i', { noremap = true, desc = 'open a new terminal' })
+
 -- keymap.set({'n', 'v', 'i'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
 
 --- Disabled keymaps [enable at your own risk]

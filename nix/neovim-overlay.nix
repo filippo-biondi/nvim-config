@@ -2,7 +2,7 @@
 {inputs}: final: prev:
 with final.pkgs.lib; let
   pkgs = import inputs.nixpkgs {
-    system = final.system;
+    inherit (final) system;
     config.allowUnfree = true;
   };
 
