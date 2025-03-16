@@ -204,6 +204,11 @@ keymap.set('n', "A", [[ getline('.') == '' ? 'cc' : 'A' ]], { expr = true, norem
 -- map <C-T> to open a new terminal
 keymap.set('n', '<C-t>', ':term<CR>i', { noremap = true, desc = 'open a new terminal' })
 
+
+vim.keymap.set('n', '<A-Left>', '<C-w>h', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-Down>', '<C-w>j', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-Up>', '<C-w>k', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-Right>', '<C-w>l', { noremap = true, silent = true })
 -- keymap.set({'n', 'v', 'i'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
 
 --- Disabled keymaps [enable at your own risk]
