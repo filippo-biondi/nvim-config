@@ -183,8 +183,8 @@ keymap.set('n', '<leader>S', toggle_spell_check, { noremap = true, silent = true
 
 -- keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'move [d]own half-page and center' })
 -- keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'move [u]p half-page and center' })
-keymap.set('n', '<C-Up>', '<C-u>', { desc = 'move [u]p half-page and center' })
-keymap.set('n', '<C-Down>', '<C-d>', { desc = 'move [d]own half-page and center' })
+keymap.set('n', '<C-Up>', '{', { desc = 'move up one paragraph' })
+keymap.set('n', '<C-Down>', '}', { desc = 'move down one paragraph' })
 -- keymap.set('n', '<C-f>', '<C-f>zz', { desc = 'move DOWN [f]ull-page and center' })
 -- keymap.set('n', '<C-b>', '<C-b>zz', { desc = 'move UP full-page and center' })
 
