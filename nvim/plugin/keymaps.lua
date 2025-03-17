@@ -183,8 +183,10 @@ keymap.set('n', '<leader>S', toggle_spell_check, { noremap = true, silent = true
 
 -- keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'move [d]own half-page and center' })
 -- keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'move [u]p half-page and center' })
-keymap.set('n', '<C-Up>', '{', { desc = 'move up one paragraph' })
-keymap.set('n', '<C-Down>', '}', { desc = 'move down one paragraph' })
+keymap.set({'n', 'v'}, '<C-Up>', '{', { desc = 'move up one paragraph' })
+keymap.set('i', '<C-Up>', '<C-o>{', { desc = 'move up one paragraph' })
+keymap.set({'n', 'v'}, '<C-Down>', '}', { desc = 'move down one paragraph' })
+keymap.set('i', '<C-Down>', '<C-o>}', { desc = 'move down one paragraph' })
 -- keymap.set('n', '<C-f>', '<C-f>zz', { desc = 'move DOWN [f]ull-page and center' })
 -- keymap.set('n', '<C-b>', '<C-b>zz', { desc = 'move UP full-page and center' })
 
@@ -205,10 +207,10 @@ keymap.set('n', "A", [[ getline('.') == '' ? 'cc' : 'A' ]], { expr = true, norem
 keymap.set('n', '<C-t>', ':term<CR>i', { noremap = true, desc = 'open a new terminal' })
 
 
-vim.keymap.set('n', '<A-Left>', '<C-w>h', { noremap = true, silent = true })
-vim.keymap.set('n', '<A-Down>', '<C-w>j', { noremap = true, silent = true })
-vim.keymap.set('n', '<A-Up>', '<C-w>k', { noremap = true, silent = true })
-vim.keymap.set('n', '<A-Right>', '<C-w>l', { noremap = true, silent = true })
+vim.keymap.set({'n', 'i', 'v', 't'}, '<A-Left>', '<C-w>h', { noremap = true, silent = true })
+vim.keymap.set({'n', 'i', 'v', 't'}, '<A-Down>', '<C-w>j', { noremap = true, silent = true })
+vim.keymap.set({'n', 'i', 'v', 't'}, '<A-Up>', '<C-w>k', { noremap = true, silent = true })
+vim.keymap.set({'n', 'i', 'v', 't'}, '<A-Right>', '<C-w>l', { noremap = true, silent = true })
 -- keymap.set({'n', 'v', 'i'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
 
 --- Disabled keymaps [enable at your own risk]
