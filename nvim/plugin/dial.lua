@@ -14,5 +14,6 @@ require("dial.config").augends:register_group{
     augend.constant.new{ elements = {"True", "False"} },
     augend.constant.new{ elements = {"yes", "no"} },
     augend.constant.new{ elements = {"on", "off"} },
+    augend.constant.new{ elements = {"online", "offline"} },
   }
 }
