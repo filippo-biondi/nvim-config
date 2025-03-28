@@ -139,6 +139,8 @@ with final.pkgs.lib; let
     ripgrep
     fd
     python3Packages.pylatexenc
+    nerd-fonts.jetbrains-mono
+    bash-language-server
   ];
 in {
   # This is the neovim derivation
