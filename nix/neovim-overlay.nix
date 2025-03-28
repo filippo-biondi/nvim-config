@@ -121,7 +121,6 @@ with final.pkgs.lib; let
     vimtex
     nvim-lastplace
     # auto-session
-    distant-nvim
     neorg
     nvim-autopairs
     dial-nvim
@@ -139,7 +138,6 @@ with final.pkgs.lib; let
     clang-tools
     ripgrep
     fd
-    distant
     python3Packages.pylatexenc
   ];
 in {

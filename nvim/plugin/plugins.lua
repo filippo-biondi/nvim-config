@@ -14,10 +14,5 @@ require("nvim-lastplace").setup()
 -- require("auto-session").setup {
 --       suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
 -- }
-require("distant"):setup({
-    manager = {
-        user = true
-    }
-})
 
 require("nvim-autopairs").setup()
