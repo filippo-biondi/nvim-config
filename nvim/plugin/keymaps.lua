@@ -209,10 +209,10 @@ keymap.set('n', "A", [[ getline('.') == '' ? 'cc' : 'A' ]], { expr = true, norem
 keymap.set('n', '<C-t>', ':term<CR>i', { noremap = true, desc = 'open a new terminal' })
 
 
-vim.keymap.set({'n', 'i', 'v', 't'}, '<A-Left>', '<C-w>h', { noremap = true, silent = true })
-vim.keymap.set({'n', 'i', 'v', 't'}, '<A-Down>', '<C-w>j', { noremap = true, silent = true })
-vim.keymap.set({'n', 'i', 'v', 't'}, '<A-Up>', '<C-w>k', { noremap = true, silent = true })
-vim.keymap.set({'n', 'i', 'v', 't'}, '<A-Right>', '<C-w>l', { noremap = true, silent = true })
+vim.keymap.set({'n', 'i', 'v', 't'}, '<D-Left>', '<C-w>h', { noremap = true, silent = true })
+vim.keymap.set({'n', 'i', 'v', 't'}, '<D-Down>', '<C-w>j', { noremap = true, silent = true })
+vim.keymap.set({'n', 'i', 'v', 't'}, '<D-Up>', '<C-w>k', { noremap = true, silent = true })
+vim.keymap.set({'n', 'i', 'v', 't'}, '<D-Right>', '<C-w>l', { noremap = true, silent = true })
 -- keymap.set({'n', 'v', 'i'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
 
 --- Disabled keymaps [enable at your own risk]
