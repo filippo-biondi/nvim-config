@@ -191,7 +191,9 @@ keymap.set('i', '<C-Down>', '<C-o>}', { desc = 'move down one paragraph' })
 -- keymap.set('n', '<C-b>', '<C-b>zz', { desc = 'move UP full-page and center' })
 
 keymap.set('i', '<C-BS>', '<C-w>', { desc = 'delete untill stard of word' })
+keymap.set('i', '<S-DEL>', '<DEL>', { desc = 'delete untill end of word' })
 keymap.set('i', '<C-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
+keymap.set('i', '<C-S-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
 keymap.set('n', '<ESC><ESC>', ':noh | nohlsearch<CR>', { desc = 'remove search highlight', silent = true })
 
 keymap.set({'n', 'v'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
