@@ -16,3 +16,4 @@ require("nvim-lastplace").setup()
 -- }
 
 require("nvim-autopairs").setup()
+require("auto-save").setup()

@@ -128,6 +128,7 @@ with final.pkgs.lib; let
     render-markdown-nvim-custom
     nabla-nvim
     stay-centered-nvim-custom
+    auto-save-nvim
   ];
 
   extraPackages = with pkgs; [
