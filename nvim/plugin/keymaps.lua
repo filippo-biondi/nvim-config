@@ -196,7 +196,11 @@ keymap.set('i', '<C-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
 keymap.set('i', '<C-S-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
 keymap.set('n', '<ESC><ESC>', ':noh | nohlsearch<CR>', { desc = 'remove search highlight', silent = true })
 
-keymap.set({'n', 'v'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
+-- keymap.set({'n', 'v'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
+keymap.set('n', '<C-S-c>', require('osc52').copy_operator, {expr = true})
+keymap.set('n', '<C-S-c><C-S-c>', '<C-S-c>_', {remap = true})
+keymap.set('v', '<C-S-c>', require('osc52').copy_visual)
+
 
 keymap.set({'n', 'v'}, '<C-Left>', 'b', { desc = 'move one wold left' })
 keymap.set({'n', 'v'}, '<C-Right>', 'w', { desc = 'move one wold left' })

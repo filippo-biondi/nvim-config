@@ -129,6 +129,7 @@ with final.pkgs.lib; let
     nabla-nvim
     stay-centered-nvim-custom
     auto-save-nvim
+    nvim-osc52
   ];
 
   extraPackages = with pkgs; [
