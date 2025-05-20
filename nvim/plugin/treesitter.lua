@@ -87,6 +87,7 @@ configs.setup {
 }
 
 require('treesitter-context').setup {
+  -- add openfoam dictionary support!!!
   max_lines = 3,
 }
 

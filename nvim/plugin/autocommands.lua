@@ -48,11 +48,11 @@ local function peek_type_definition()
   return vim.lsp.buf_request(0, 'textDocument/typeDefinition', params, preview_location_callback)
 end
 
---- Don't create a comment string when hitting <Enter> on a comment line
+--- Don't create a comment string when hitting o or O on a comment line
 vim.api.nvim_create_autocmd('BufEnter', {
   group = vim.api.nvim_create_augroup('DisableNewLineAutoCommentString', {}),
   callback = function()
-    vim.opt.formatoptions = vim.opt.formatoptions - { 'c', 'r', 'o' }
+    vim.opt.formatoptions = vim.opt.formatoptions - { 'o' }
   end,
 })
 
@@ -71,14 +71,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.bo[bufnr].bufhidden = 'hide'
 
     -- Enable completion triggered by <c-x><c-o>
-    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+    -- vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
     local function desc(description)
       return { noremap = true, silent = true, buffer = bufnr, desc = description }
     end
     keymap.set('n', 'gD', vim.lsp.buf.declaration, desc('lsp [g]o to [D]eclaration'))
     keymap.set('n', 'gd', vim.lsp.buf.definition, desc('lsp [g]o to [d]efinition'))
     keymap.set('n', '<space>gt', vim.lsp.buf.type_definition, desc('lsp [g]o to [t]ype definition'))
-    keymap.set('n', 'K', vim.lsp.buf.hover, desc('[lsp] hover'))
+    keymap.set('n', 'h', vim.lsp.buf.hover, desc('lsp [h]over'))
     keymap.set('n', '<space>pd', peek_definition, desc('lsp [p]eek [d]efinition'))
     keymap.set('n', '<space>pt', peek_type_definition, desc('lsp [p]eek [t]ype definition'))
     keymap.set('n', 'gi', vim.lsp.buf.implementation, desc('lsp [g]o to [i]mplementation'))
@@ -90,9 +90,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, desc('[lsp] [w]orkspace folders [l]ist'))
     keymap.set('n', '<space>rn', vim.lsp.buf.rename, desc('lsp [r]e[n]ame'))
     keymap.set('n', '<space>wq', vim.lsp.buf.workspace_symbol, desc('lsp [w]orkspace symbol [q]'))
-    keymap.set('n', '<space>dd', vim.lsp.buf.document_symbol, desc('lsp [dd]ocument symbol'))
-    keymap.set('n', '<M-CR>', vim.lsp.buf.code_action, desc('[lsp] code action'))
-    keymap.set('n', '<M-l>', vim.lsp.codelens.run, desc('[lsp] run code lens'))
+    -- keymap.set('n', '<space>dd', vim.lsp.buf.document_symbol, desc('lsp [dd]ocument symbol'))
+    keymap.set('n', '<space>ca', vim.lsp.buf.code_action, desc('[lsp] code action'))
+    keymap.set('n', '<space>ce', vim.lsp.codelens.run, desc('[lsp] run code lens'))
     keymap.set('n', '<space>cr', vim.lsp.codelens.refresh, desc('lsp [c]ode lenses [r]efresh'))
     keymap.set('n', 'gr', vim.lsp.buf.references, desc('lsp [g]et [r]eferences'))
     keymap.set('n', '<space>f', function()
@@ -122,29 +122,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
-
--- More examples, disabled by default
-
--- Toggle between relative/absolute line numbers
--- Show relative line numbers in the current buffer,
--- absolute line numbers in inactive buffers
--- local numbertoggle = api.nvim_create_augroup('numbertoggle', { clear = true })
--- api.nvim_create_autocmd({ 'BufEnter', 'FocusGained', 'InsertLeave', 'CmdlineLeave', 'WinEnter' }, {
---   pattern = '*',
---   group = numbertoggle,
---   callback = function()
---     if vim.o.nu and vim.api.nvim_get_mode().mode ~= 'i' then
---       vim.opt.relativenumber = true
---     end
---   end,
--- })
--- api.nvim_create_autocmd({ 'BufLeave', 'FocusLost', 'InsertEnter', 'CmdlineEnter', 'WinLeave' }, {
---   pattern = '*',
---   group = numbertoggle,
---   callback = function()
---     if vim.o.nu then
---       vim.opt.relativenumber = false
---       vim.cmd.redraw()
---     end
---   end,
--- })

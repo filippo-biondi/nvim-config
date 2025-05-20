@@ -1,5 +1,9 @@
+if vim.g.did_load_blink_plugin then
+  return
+end
+vim.g.did_load_blink_plugin = true
+
 local blink = require('blink.cmp')
-local stay_centered = require('stay-centered')
 
 blink.setup({
   -- Enable auto-bracket insertion based on semantic tokens
@@ -17,13 +21,17 @@ blink.setup({
     }
   },
   sources = {
-    -- Remove 'buffer' if you don't want text completions, by default it's only enabled when LSP returns no items
-    default = { 'lsp', 'path', 'snippets', 'buffer' },
+    default = function ()
+      if require("cmp_dap").is_dap_buffer() then
+        return { 'dap', 'lsp', 'path', 'snippets', 'buffer' }
+      else
+        return { 'lsp', 'path', 'snippets', 'buffer' }
+      end
+    end,
     providers = {
-      markdown = {
-        name = 'RenderMarkdown',
-        module = 'render-markdown.integ.blink',
-        fallbacks = { 'lsp' },
+      dap = {
+        name = "dap",
+        module = "blink.compat.source",
       },
     },
   },
@@ -45,8 +53,15 @@ blink.setup({
     ['<Down>'] = { 'select_next', 'fallback' },
     ['<Tab>'] = { 'accept', 'fallback' },
     ['<C-Up>'] = { 'scroll_documentation_up', 'fallback' },
+    ['<C-S>'] = { 'show', 'hide' },
     ['<C-Down>'] = { 'scroll_documentation_down', 'fallback' },
+    ['<C-H>'] = { 'show_documentation', 'hide_documentation', 'fallback' },
     ['<C-N>'] = { 'snippet_forward', 'fallback' },
     ['<C-B>'] = { 'snippet_backward', 'fallback' },
+  },
+
+  cmdline = {
+    keymap = { preset = 'inherit' },
+    completion = { menu = { auto_show = true } },
   },
 })

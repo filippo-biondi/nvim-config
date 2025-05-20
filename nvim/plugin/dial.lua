@@ -1,3 +1,8 @@
+if vim.g.did_load_dial_plugin then
+  return
+end
+vim.g.did_load_dial_plugin = true
+
 vim.keymap.set({'n', 'v'}, '<C-a>', function()
     require("dial.map").manipulate("increment", "normal")
 end)

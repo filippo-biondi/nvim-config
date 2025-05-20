@@ -28,25 +28,29 @@ local function extra_mode_status()
   return ''
 end
 
+
+local function refresh_name(str)
+  if hydra_statusline.is_active() == true and vim.fn.mode() == "n" then
+    return hydra_statusline.get_name()
+  end
+  return str
+end
+
+local function refresh_color(tb)
+  if hydra_statusline.is_active() == true and vim.fn.mode() == "n" then
+    return {bg = hydra_statusline.get_color()}
+  end
+  return tb
+end
+
 require('lualine').setup {
   globalstatus = true,
   sections = {
     lualine_a = {
         {
           'mode',
-          fmt = function(str)
-            if hydra_statusline.is_active() == true and vim.fn.mode() == "n" then
-              return hydra_statusline.get_name()
-            end
-            return str
-          end,
-
-          color = function(tb)
-            if hydra_statusline.is_active() == true and vim.fn.mode() == "n" then
-              return {bg = hydra_statusline.get_color()}
-            end
-            return tb
-          end,
+          fmt = refresh_name,
+          color = refresh_color,
         }
       },
     lualine_c = {
@@ -59,48 +63,47 @@ require('lualine').setup {
     },
   },
   options = {
+    disabled_filetypes = {
+      winbar = { 'dap-view', 'dap-repl', 'dap-view-term', 'NvimTree', 'neo-tree', 'Outline', 'TelescopePrompt', 'toggleterm', 'help', 'alpha', 'dashboard' },
+    },
     theme = 'auto',
   },
-  -- Example top tabline configuration (this may clash with other plugins)
-  -- tabline = {
-  --   lualine_a = {
-  --     {
-  --       'tabs',
-  --       mode = 1,
-  --     },
-  --   },
-  --   lualine_b = {
-  --     {
-  --       'buffers',
-  --       show_filename_only = true,
-  --       show_bufnr = true,
-  --       mode = 4,
-  --       filetype_names = {
-  --         TelescopePrompt = 'Telescope',
-  --         dashboard = 'Dashboard',
-  --         fzf = 'FZF',
-  --       },
-  --       buffers_color = {
-  --         -- Same values as the general color option can be used here.
-  --         active = 'lualine_b_normal', -- Color for active buffer.
-  --         inactive = 'lualine_b_inactive', -- Color for inactive buffer.
-  --       },
-  --     },
-  --   },
-  --   lualine_c = {},
-  --   lualine_x = {},
-  --   lualine_y = {},
-  --   lualine_z = {},
-  -- },
   winbar = {
+    lualine_a = {
+      {
+        'buffers',
+        show_filename_only = true,
+        hide_filename_extension = false,
+        show_modified_status = true,
+
+        mode = 0,
+        max_length = vim.o.columns * 2 / 3, -- Maximum width of buffers component,
+                                            -- it can also be a function that returns
+                                            -- the value of `max_length` dynamically.
+        filetype_names = {
+          TelescopePrompt = 'Telescope',
+          dashboard = 'Dashboard',
+          packer = 'Packer',
+          fzf = 'FZF',
+          alpha = 'Alpha'
+        }, -- Shows specific buffer name for that filetype ( { `filetype` = `buffer_name`, ... } )
+
+        symbols = {
+          modified = ' ●',      -- Text to show when the buffer is modified
+          alternate_file = '#', -- Text to show to identify the alternate file
+          directory =  '',     -- Text to show when the buffer is a directory
+        }
+      }
+    },
     lualine_z = {
       {
         'filename',
         path = 1,
         file_status = true,
         newfile_status = true,
+        color = refresh_color
       },
     },
   },
-  extensions = { 'fugitive', 'fzf', 'toggleterm', 'quickfix', 'nvim-tree', 'nvim-dap-ui' },
+  extensions = { 'fugitive', 'fzf', 'toggleterm', 'quickfix', 'nvim-tree' },
 }

@@ -119,15 +119,6 @@ end, { silent = true, desc = '[f]loating windows: [q]uit/close all' })
 keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'switch to normal mode' })
 keymap.set('t', '<C-Esc>', '<Esc>', { desc = 'send Esc to terminal' })
 
--- Shortcut for expanding to current buffer's directory in command mode
-keymap.set('c', '%%', function()
-  if fn.getcmdtype() == ':' then
-    return fn.expand('%:h') .. '/'
-  else
-    return '%%'
-  end
-end, { expr = true, desc = "expand to current buffer's directory" })
-
 keymap.set('n', '<space>tn', vim.cmd.tabnew, { desc = '[t]ab: [n]ew' })
 keymap.set('n', '<space>tq', vim.cmd.tabclose, { desc = '[t]ab: [q]uit/close' })
 
@@ -181,26 +172,49 @@ end
 
 keymap.set('n', '<leader>S', toggle_spell_check, { noremap = true, silent = true, desc = 'toggle [S]pell' })
 
--- keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'move [d]own half-page and center' })
--- keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'move [u]p half-page and center' })
-keymap.set({'n', 'v'}, '<C-Up>', '{', { desc = 'move up one paragraph' })
-keymap.set('i', '<C-Up>', '<C-o>{', { desc = 'move up one paragraph' })
-keymap.set({'n', 'v'}, '<C-Down>', '}', { desc = 'move down one paragraph' })
-keymap.set('i', '<C-Down>', '<C-o>}', { desc = 'move down one paragraph' })
--- keymap.set('n', '<C-f>', '<C-f>zz', { desc = 'move DOWN [f]ull-page and center' })
--- keymap.set('n', '<C-b>', '<C-b>zz', { desc = 'move UP full-page and center' })
+   local jump_to_paragraph_start = function()
+  local column = vim.fn.virtcol(".")
+  if vim.fn.line(".") == (vim.fn.line("'{") + 1) then
+    vim.fn.cursor(vim.fn.line(".") - 1, column)
+  end
+  local paragraph_start = vim.fn.line("'{")
+  if  paragraph_start == 1 then
+    vim.fn.cursor(1, column)
+  else
+    vim.fn.cursor((paragraph_start + 1), column)
+  end
+end
 
-keymap.set('i', '<C-BS>', '<C-w>', { desc = 'delete untill stard of word' })
-keymap.set('i', '<S-DEL>', '<DEL>', { desc = 'delete untill end of word' })
-keymap.set('i', '<C-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
-keymap.set('i', '<C-S-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
+local jump_to_paragraph_end = function()
+  local column = vim.fn.virtcol(".")
+  if vim.fn.line(".") == (vim.fn.line("'}") - 1) then
+    vim.fn.cursor(vim.fn.line(".") + 1, column)
+  end
+  local paragraph_end = vim.fn.line("'}")
+  if  paragraph_end == vim.fn.line("$") then
+    vim.fn.cursor(vim.fn.line("$"), column)
+  else
+    vim.fn.cursor((paragraph_end - 1), column)
+  end
+end
+
+keymap.set({'n', 'v', 'i'}, '<C-Up>', jump_to_paragraph_start, { desc = 'move up one paragraph' })
+-- keymap.set('i', '<C-Up>', '<C-o>{', { desc = 'move up one paragraph' })
+keymap.set({'n', 'v', 'i'}, '<C-Down>', jump_to_paragraph_end, { desc = 'move down one paragraph' })
+-- keymap.set('i', '<C-Down>', '<C-o>}', { desc = 'move down one paragraph' })
+keymap.set('n', '<S-Down>', '<Down>', { silent = true })
+keymap.set('n', '<S-Up>', '<Up>', { silent = true })
+
+keymap.set({'i', 't'}, '<C-BS>', '<C-w>', { desc = 'delete untill stard of word' })
+keymap.set({'i', 't'}, '<S-DEL>', '<DEL>', { desc = 'delete untill end of word' })
+keymap.set({'i', 't'}, '<C-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
+keymap.set({'i', 't'}, '<C-S-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
+
 keymap.set('n', '<ESC><ESC>', ':noh | nohlsearch<CR>', { desc = 'remove search highlight', silent = true })
 
--- keymap.set({'n', 'v'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
 keymap.set('n', '<C-S-c>', require('osc52').copy_operator, {expr = true})
 keymap.set('n', '<C-S-c><C-S-c>', '<C-S-c>_', {remap = true})
 keymap.set('v', '<C-S-c>', require('osc52').copy_visual)
-
 
 keymap.set({'n', 'v'}, '<C-Left>', 'b', { desc = 'move one wold left' })
 keymap.set({'n', 'v'}, '<C-Right>', 'w', { desc = 'move one wold left' })
@@ -212,22 +226,22 @@ keymap.set('n', "A", [[ getline('.') == '' ? 'cc' : 'A' ]], { expr = true, norem
 -- map <C-T> to open a new terminal
 keymap.set('n', '<C-t>', ':term<CR>i', { noremap = true, desc = 'open a new terminal' })
 
+vim.keymap.set({'n', 'v'}, '<D-Left>', '<C-w>h', { noremap = true, silent = true })
+vim.keymap.set({'i', 't'}, '<D-Left>', '<esc><C-w>h', { noremap = true, silent = true })
+vim.keymap.set({'n', 'v'}, '<D-Right>', '<C-w>l', { noremap = true, silent = true })
+vim.keymap.set({'i', 't'}, '<D-Right>', '<esc><C-w>l', { noremap = true, silent = true })
+vim.keymap.set({'n', 'v'}, '<D-Up>', '<C-w>k', { noremap = true, silent = true })
+vim.keymap.set({'i', 't'}, '<D-Up>', '<esc><C-w>k', { noremap = true, silent = true })
+vim.keymap.set({'n', 'v'}, '<D-Down>', '<C-w>j', { noremap = true, silent = true })
+vim.keymap.set({'i', 't'}, '<D-Down>', '<esc><C-w>j', { noremap = true, silent = true })
 
-vim.keymap.set({'n', 'i', 'v', 't'}, '<D-Left>', '<C-w>h', { noremap = true, silent = true })
-vim.keymap.set({'n', 'i', 'v', 't'}, '<D-Down>', '<C-w>j', { noremap = true, silent = true })
-vim.keymap.set({'n', 'i', 'v', 't'}, '<D-Up>', '<C-w>k', { noremap = true, silent = true })
-vim.keymap.set({'n', 'i', 'v', 't'}, '<D-Right>', '<C-w>l', { noremap = true, silent = true })
--- keymap.set({'n', 'v', 'i'}, '<C-S-c>', '"+y', { desc = 'copy to clipboard' })
-
---- Disabled keymaps [enable at your own risk]
-
--- Automatic management of search highlight
--- XXX: This is not so nice if you use j/k for navigation
--- (you should be using <C-d>/<C-u> and relative line numbers instead ;)
---
--- local auto_hlsearch_namespace = vim.api.nvim_create_namespace('auto_hlsearch')
--- vim.on_key(function(char)
---   if vim.fn.mode() == 'n' then
---     vim.opt.hlsearch = vim.tbl_contains({ '<CR>', 'n', 'N', '*', '#', '?', '/' }, vim.fn.keytrans(char))
---   end
--- end, auto_hlsearch_namespace)
+-- smart Home key
+vim.keymap.set({ 'n', 'i', 'v'}, '<Home>', function()
+  local col = vim.fn.col('.')
+  local first_nonblank = vim.fn.matchstrpos(vim.fn.getline('.'), [[\S]])[2] + 1
+  if col == first_nonblank then
+    return '0'
+  else
+    return '^'
+  end
+end, { expr = true, noremap = true })

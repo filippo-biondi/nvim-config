@@ -3,7 +3,6 @@ local fn = vim.fn
 local opt = vim.o
 local g = vim.g
 
--- <leader> key. Defaults to `\`. Some people prefer space.
 g.mapleader = ' '
 g.maplocalleader = ' '
 
@@ -22,18 +21,15 @@ end
 
 -- See :h <option> to see what the options do
 
-
 -- Search down into subfolders
 opt.path = vim.o.path .. '**'
 
 opt.number = true
 opt.relativenumber = true
 opt.cursorline = true
--- opt.lazyredraw = true
-opt.showmatch = true -- Highlight matching parentheses, etc
+opt.timeoutlen = 0
 opt.incsearch = true
 opt.hlsearch = true
--- opt.scrolloff = 999
 
 opt.spell = true
 opt.spelllang = 'en'
@@ -48,7 +44,6 @@ opt.nrformats = 'bin,hex' -- 'octal'
 opt.undofile = true
 opt.splitright = true
 opt.splitbelow = true
-opt.cmdheight = 0
 
 opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
@@ -102,9 +97,13 @@ vim.diagnostic.config {
 
 g.editorconfig = true
 
-vim.opt.colorcolumn = '100'
+opt.colorcolumn = '100'
 
 cmd.colorscheme "catppuccin-mocha"
+
+vim.cmd("highlight! link CursorLineNr Normal")
+vim.cmd("highlight! link LineNrAbove Normal")
+vim.cmd("highlight! link LineNrBelow Normal")
 
 vim.opt.iskeyword:remove("_")
 

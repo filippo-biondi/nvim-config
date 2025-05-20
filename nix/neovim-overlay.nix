@@ -6,34 +6,7 @@ with final.pkgs.lib; let
     config.allowUnfree = true;
   };
 
-  # Use this to create a plugin from a flake input
-  mkNvimPlugin = src: pname:
-    pkgs.vimUtils.buildVimPlugin {
-      inherit pname src;
-      version = src.lastModifiedDate;
-    };
-
-  render-markdown-nvim-custom = pkgs.vimUtils.buildVimPlugin {
-    pname = "render-markdown-nvim-custom";
-    version = "1.0.0"; # You can set a dummy version
-    src = pkgs.fetchFromGitHub {
-      owner = "filippo-biondi";
-      repo = "render-markdown.nvim";
-      rev = "31d86e4992d705dcb098c21455b15682d992d6bf";
-      sha256 = "sha256-GR48F5m4s9BVyxdlu+2wHkXCKuY8Kxra76m4zxsO2vI=";
-    };
-  };
-
-  stay-centered-nvim-custom = pkgs.vimUtils.buildVimPlugin {
-    pname = "stay-centered-custom";
-    version = "1.0.0"; # You can set a dummy version
-    src = pkgs.fetchFromGitHub {
-      owner = "filippo-biondi";
-      repo = "stay-centered.nvim";
-      rev = "af331fd3832bbe7cabf14f4cacc8629ab25fdea5";
-      sha256 = "sha256-gsFvoj5cqXMaYf8veBvQCNjW4rbjjnJyAw2gZnl8dCA=";
-    };
-  };
+  custom-pkgs = import ./custom-pkgs { inherit pkgs; };
 
   # This is the helper function that builds the Neovim derivation.
   mkNeovim = pkgs.callPackage ./mkNeovim.nix { inherit pkgs; };
@@ -53,6 +26,8 @@ with final.pkgs.lib; let
     nvim-web-devicons
     nvim-tree-lua
     nvim-treesitter.withAllGrammars
+    nvim-treesitter-context
+    nvim-treesitter-textobjects
     nvim-treesitter-parsers.foam
     nvim-treesitter-parsers.python
     nvim-treesitter-parsers.markdown
@@ -63,15 +38,18 @@ with final.pkgs.lib; let
     nvim-treesitter-parsers.lua
     nvim-treesitter-parsers.regex
     nvim-treesitter-parsers.json
+    nvim-treesitter-parsers.dockerfile
+    nvim-treesitter-parsers.devicetree
     friendly-snippets
     blink-cmp
+    blink-compat
     lspkind-nvim # vscode-like LSP pictograms | https://github.com/onsails/lspkind.nvim/
     nvim-lspconfig
     nvim-dap
-    nvim-dap-ui
     nvim-dap-python
+    custom-pkgs.nvim-dap-view
     nvim-dap-virtual-text
-    hydra-nvim
+    custom-pkgs.hydra
     nvim-nio
     noice-nvim
     nui-nvim
@@ -86,21 +64,18 @@ with final.pkgs.lib; let
     # telescope and extensions
     telescope-nvim # https://github.com/nvim-telescope/telescope.nvim/
     telescope-fzy-native-nvim # https://github.com/nvim-telescope/telescope-fzy-native.nvim
-    # telescope-smart-history-nvim # https://github.com/nvim-telescope/telescope-smart-history.nvim
+    telescope-smart-history-nvim # https://github.com/nvim-telescope/telescope-smart-history.nvim
     # ^ telescope and extensions
     # UI
     lualine-nvim # Status line | https://github.com/nvim-lualine/lualine.nvim/
     nvim-navic # Add LSP location to lualine | https://github.com/SmiteshP/nvim-navic
     statuscol-nvim # Status column | https://github.com/luukvbaal/statuscol.nvim/
-    nvim-treesitter-context # nvim-treesitter-context
     # ^ UI
     # language support
     # ^ language support
     # navigation/editing enhancement plugins
     vim-unimpaired # predefined ] and [ navigation keymaps | https://github.com/tpope/vim-unimpaired/
-    eyeliner-nvim # Highlights unique characters for f/F and t/T motions | https://github.com/jinh0/eyeliner.nvim
     nvim-surround # https://github.com/kylechui/nvim-surround/
-    nvim-treesitter-textobjects # https://github.com/nvim-treesitter/nvim-treesitter-textobjects/
     nvim-ts-context-commentstring # https://github.com/joosepalviste/nvim-ts-context-commentstring/
     # ^ navigation/editing enhancement plugins
     todo-comments-nvim
@@ -112,10 +87,6 @@ with final.pkgs.lib; let
     plenary-nvim
     nvim-web-devicons
     vim-repeat
-    # ^ libraries that other plugins depend on
-    # bleeding-edge plugins from flake inputs
-    # (mkNvimPlugin inputs.wf-nvim "wf.nvim") # (example) keymap hints | https://github.com/Cassin01/wf.nvim
-    # ^ bleeding-edge plugins from flake inputs
     which-key-nvim
     copilot-vim
     vimtex
@@ -125,31 +96,58 @@ with final.pkgs.lib; let
     nvim-autopairs
     dial-nvim
     vim-better-whitespace
-    render-markdown-nvim-custom
+    render-markdown-nvim
     nabla-nvim
-    stay-centered-nvim-custom
+    custom-pkgs.stay-centered-nvim
     auto-save-nvim
     nvim-osc52
+    nvim-colorizer-lua
+    cmp-dap
+    nvim-cmp
+    leap-nvim
+    custom-pkgs.hardtime-nvim
+    bufferline-nvim
   ];
 
   extraPackages = with pkgs; [
     # language servers, etc.
     lua-language-server
-    nil # nix LSP
+    nixd
     pyright
     clang-tools
+    cmake-language-server
     ripgrep
     fd
     python3Packages.pylatexenc
     nerd-fonts.jetbrains-mono
     bash-language-server
+    dockerfile-language-server-nodejs
+    docker-compose-language-service
+    custom-pkgs.foam-lsp
+    custom-pkgs.hydra-lsp
+    custom-pkgs.dts-lsp
+    marksman
+    systemd-language-server
+    texlab
+    sqlite
   ];
+
 in {
   # This is the neovim derivation
   # returned by the overlay
   nvim-pkg = mkNeovim {
     plugins = all-plugins;
     inherit extraPackages;
+  };
+
+  # This is meant to be used within a devshell.
+  # Instead of loading the lua Neovim configuration from
+  # the Nix store, it is loaded from $XDG_CONFIG_HOME/nvim-dev
+  nvim-dev = mkNeovim {
+    plugins = all-plugins;
+    inherit extraPackages;
+    appName = "nvim-dev";
+    wrapRc = false;
   };
 
   # This can be symlinked in the devShell's shellHook

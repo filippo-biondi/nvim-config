@@ -7,9 +7,6 @@ vim.g.did_load_plugins_plugin = true
 -- even with default configs
 
 require('nvim-surround').setup()
-require("dap-python").setup("python3")
-require("dapui").setup()
-require("nvim-dap-virtual-text").setup()
 require("nvim-lastplace").setup()
 -- require("auto-session").setup {
 --       suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
@@ -18,4 +15,4 @@ require("nvim-lastplace").setup()
 require("nvim-autopairs").setup()
 require("auto-save").setup()
 require('osc52').setup()
-
+require("colorizer").setup()

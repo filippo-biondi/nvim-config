@@ -36,6 +36,7 @@ with lib;
     viAlias ? appName == null || appName == "nvim",
     # Add a "vim" binary to the build output as an alias?
     vimAlias ? appName == null || appName == "nvim",
+    wrapRc ? true,
   }: let
     # This is the structure of a plugin definition.
     # Each plugin in the `plugins` argument list can also be defined as this attrset
@@ -76,7 +77,7 @@ with lib;
       lib.cleanSourceWith {
         inherit src;
         name = "nvim-rtp-src";
-        filter = path: tyoe: let
+        filter = path: type: let
           srcPrefix = toString src + "/";
           relPath = lib.removePrefix srcPrefix (toString path);
         in
@@ -94,13 +95,13 @@ with lib;
 
       buildPhase = ''
         mkdir -p $out/nvim
-        mkdir -p $out/lua
+        # mkdir -p $out/lua
         rm init.lua
       '';
 
       installPhase = ''
-        cp -r lua $out/lua
-        rm -r lua
+        # cp -r lua $out/lua
+        # rm -r lua
         # Copy nvim/after only if it exists
         if [ -d "after" ]; then
             cp -r after $out/after
@@ -155,7 +156,11 @@ with lib;
       '';
 
     # Add arguments to the Neovim wrapper script
-    extraMakeWrapperArgs = builtins.concatStringsSep " " (
+    extraMakeWrapperArgs = let
+      sqliteLibExt = if stdenv.isDarwin then ".dylib" else ".so";
+      sqlietLibPath = "${pkgs.sqlite.out}/lib/libsqlite3${sqliteLibExt}";
+    in
+    builtins.concatStringsSep " " (
       # Set the NVIM_APPNAME environment variable
       (optional (appName != "nvim" && appName != null && appName != "")
         ''--set NVIM_APPNAME "${appName}"'')
@@ -164,10 +169,7 @@ with lib;
         ''--prefix PATH : "${makeBinPath externalPackages}"'')
       # Set the LIBSQLITE_CLIB_PATH if sqlite is enabled
       ++ (optional withSqlite
-        ''--set LIBSQLITE_CLIB_PATH "${pkgs.sqlite.out}/lib/libsqlite3.so"'')
-      # Set the LIBSQLITE environment variable if sqlite is enabled
-      ++ (optional withSqlite
-        ''--set LIBSQLITE "${pkgs.sqlite.out}/lib/libsqlite3.so"'')
+        ''--set LIBSQLITE_CLIB_PATH "${sqlietLibPath}" --set LIBSQLITE "${sqlietLibPath}"'')
     );
 
     luaPackages = neovim-unwrapped.lua.pkgs;
@@ -195,7 +197,7 @@ with lib;
           + extraMakeWrapperLuaCArgs
           + " "
           + extraMakeWrapperLuaArgs;
-        wrapRc = true;
+        wrapRc = wrapRc;
       });
 
     isCustomAppName = appName != null && appName != "nvim";
@@ -207,8 +209,8 @@ with lib;
         + lib.optionalString isCustomAppName ''
           mv $out/bin/nvim $out/bin/${lib.escapeShellArg appName}
         '';
-      meta.mainProgram 
-        = if isCustomAppName 
-            then appName 
+      meta.mainProgram
+        = if isCustomAppName
+            then appName
             else oa.meta.mainProgram;
     })
