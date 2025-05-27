@@ -107,6 +107,7 @@ with final.pkgs.lib; let
     leap-nvim
     custom-pkgs.hardtime-nvim
     bufferline-nvim
+    conform-nvim
   ];
 
   extraPackages = with pkgs; [
@@ -130,6 +131,7 @@ with final.pkgs.lib; let
     systemd-language-server
     texlab
     sqlite
+    black
   ];
 
 in {
