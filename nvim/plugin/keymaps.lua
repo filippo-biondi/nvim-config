@@ -236,7 +236,7 @@ vim.keymap.set({'n', 'v'}, '<D-Down>', '<C-w>j', { noremap = true, silent = true
 vim.keymap.set({'i', 't'}, '<D-Down>', '<esc><C-w>j', { noremap = true, silent = true })
 
 -- smart Home key
-vim.keymap.set({ 'n', 'i', 'v'}, '<Home>', function()
+vim.keymap.set({ 'n', 'v'}, '<Home>', function()
   local col = vim.fn.col('.')
   local first_nonblank = vim.fn.matchstrpos(vim.fn.getline('.'), [[\S]])[2] + 1
   if col == first_nonblank then
