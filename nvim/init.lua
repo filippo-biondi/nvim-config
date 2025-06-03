@@ -1,6 +1,7 @@
 local cmd = vim.cmd
 local fn = vim.fn
-local opt = vim.o
+local o = vim.o
+local opt = vim.opt
 local g = vim.g
 
 g.mapleader = ' '
@@ -11,41 +12,52 @@ if vim.fn.argc() == 0 then
     cmd('edit .')
 end
 
-opt.compatible = false
-opt.wrap = false
+o.compatible = false
+o.wrap = false
 
 -- Enable true colour support
 if fn.has('termguicolors') then
-  opt.termguicolors = true
+  o.termguicolors = true
 end
 
 -- See :h <option> to see what the options do
 
 -- Search down into subfolders
-opt.path = vim.o.path .. '**'
+o.path = o.path .. '**'
 
-opt.number = true
-opt.relativenumber = true
-opt.cursorline = true
-opt.timeoutlen = 0
-opt.incsearch = true
-opt.hlsearch = true
+o.number = true
+o.relativenumber = true
+o.cursorline = true
+o.timeout = false
+o.timeoutlen = 0
+o.ignorecase = true
+o.smartcase = true
+o.incsearch = true
+o.hlsearch = true
 
-opt.spell = true
-opt.spelllang = 'en'
+o.spelllang = 'en'
 
-opt.expandtab = true
-opt.tabstop = 2
-opt.softtabstop = 2
-opt.shiftwidth = 2
-opt.foldenable = true
-opt.history = 2000
-opt.nrformats = 'bin,hex' -- 'octal'
-opt.undofile = true
-opt.splitright = true
-opt.splitbelow = true
+o.spell = true
+o.expandtab = true
+o.tabstop = 2
+o.softtabstop = 2
+o.shiftwidth = 2
+o.foldenable = true
+o.history = 2000
+o.nrformats = 'bin,hex' -- 'octal'
+o.undofile = true
+o.splitright = true
+o.splitbelow = true
 
-opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+opt.guicursor = {
+  "n-v:block",
+  "i-c-ci-ve:ver25",
+  "r-cr:hor20",
+  "o:hor50",
+  "sm:block"
+}
+
+o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
 -- Configure Neovim diagnostic messages
 
@@ -97,7 +109,7 @@ vim.diagnostic.config {
 
 g.editorconfig = true
 
-opt.colorcolumn = '100'
+o.colorcolumn = '100'
 
 cmd.colorscheme "catppuccin-mocha"
 
@@ -105,7 +117,7 @@ vim.cmd("highlight! link CursorLineNr Normal")
 vim.cmd("highlight! link LineNrAbove Normal")
 vim.cmd("highlight! link LineNrBelow Normal")
 
-vim.opt.iskeyword:remove("_")
+opt.iskeyword:remove("_")
 
 -- Native plugins
 cmd.filetype('plugin', 'indent', 'on')

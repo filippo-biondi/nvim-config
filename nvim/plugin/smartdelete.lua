@@ -12,3 +12,5 @@ for _, key in pairs(keys) do
 		return smart_delete(key)
 	end, { noremap = true, expr = true, desc = "Smart delete" })
 end
+
+vim.keymap.set("n", "x", '"_x', { noremap = true, desc = "Smart delete char" }) -- Override 'x' to use the black hole register

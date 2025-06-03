@@ -3,4 +3,5 @@ if vim.g.did_load_leap_plugin then
 end
 vim.g.did_load_leap_plugin = true
 
-require('leap').set_default_mappings()
+vim.keymap.set({'n', 'x', 'o'}, 'l', '<Plug>(leap)')
+vim.keymap.set('n',             'L', '<Plug>(leap-from-window)')

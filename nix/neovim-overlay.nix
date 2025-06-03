@@ -75,7 +75,6 @@ with final.pkgs.lib; let
     # ^ language support
     # navigation/editing enhancement plugins
     vim-unimpaired # predefined ] and [ navigation keymaps | https://github.com/tpope/vim-unimpaired/
-    nvim-surround # https://github.com/kylechui/nvim-surround/
     nvim-ts-context-commentstring # https://github.com/joosepalviste/nvim-ts-context-commentstring/
     # ^ navigation/editing enhancement plugins
     todo-comments-nvim
@@ -91,11 +90,8 @@ with final.pkgs.lib; let
     copilot-vim
     vimtex
     nvim-lastplace
-    # auto-session
     neorg
-    nvim-autopairs
     dial-nvim
-    vim-better-whitespace
     render-markdown-nvim
     nabla-nvim
     custom-pkgs.stay-centered-nvim
@@ -108,6 +104,15 @@ with final.pkgs.lib; let
     custom-pkgs.hardtime-nvim
     bufferline-nvim
     conform-nvim
+    mini-move
+    mini-pairs
+    mini-splitjoin
+    mini-surround
+    mini-bufremove
+    mini-cursorword
+    mini-icons
+    mini-indentscope
+    mini-trailspace
   ];
 
   extraPackages = with pkgs; [
@@ -128,7 +133,6 @@ with final.pkgs.lib; let
     custom-pkgs.hydra-lsp
     custom-pkgs.dts-lsp
     marksman
-    systemd-language-server
     texlab
     sqlite
     black

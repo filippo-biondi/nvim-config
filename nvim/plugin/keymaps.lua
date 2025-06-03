@@ -172,36 +172,84 @@ end
 
 keymap.set('n', '<leader>S', toggle_spell_check, { noremap = true, silent = true, desc = 'toggle [S]pell' })
 
-   local jump_to_paragraph_start = function()
-  local column = vim.fn.virtcol(".")
-  if vim.fn.line(".") == (vim.fn.line("'{") + 1) then
-    vim.fn.cursor(vim.fn.line(".") - 1, column)
+local function jump_to_next_paragraph()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cur_line = vim.api.nvim_win_get_cursor(0)[1]
+  local total_lines = vim.api.nvim_buf_line_count(bufnr)
+
+  local found_blank = false
+
+  for lnum = cur_line + 1, total_lines do
+    local line = vim.fn.getline(lnum)
+
+    if not found_blank then
+      if line:match("^%s*$") then
+        found_blank = true
+      end
+    else
+      if not line:match("^%s*$") then
+        vim.api.nvim_win_set_cursor(0, {lnum, 0})
+        return
+      end
+    end
   end
-  local paragraph_start = vim.fn.line("'{")
-  if  paragraph_start == 1 then
-    vim.fn.cursor(1, column)
-  else
-    vim.fn.cursor((paragraph_start + 1), column)
+
+  -- If we didn't find another paragraph, jump to the last non-blank line
+  for lnum = total_lines, cur_line + 1, -1 do
+    local line = vim.fn.getline(lnum)
+    if not line:match("^%s*$") then
+      vim.api.nvim_win_set_cursor(0, {lnum, 0})
+      return
+    end
   end
 end
 
-local jump_to_paragraph_end = function()
-  local column = vim.fn.virtcol(".")
-  if vim.fn.line(".") == (vim.fn.line("'}") - 1) then
-    vim.fn.cursor(vim.fn.line(".") + 1, column)
+local function jump_to_previous_paragraph()
+  local cur_line = vim.api.nvim_win_get_cursor(0)[1]
+
+  -- Find the first line of the current paragraph
+  local function find_paragraph_start(line)
+    while line > 1 do
+      local prev = vim.fn.getline(line - 1)
+      if prev:match("^%s*$") then
+        break
+      end
+      line = line - 1
+    end
+    return line
   end
-  local paragraph_end = vim.fn.line("'}")
-  if  paragraph_end == vim.fn.line("$") then
-    vim.fn.cursor(vim.fn.line("$"), column)
-  else
-    vim.fn.cursor((paragraph_end - 1), column)
+
+  local current_start = find_paragraph_start(cur_line)
+
+  -- If we're not at the start already, go to the start of current paragraph
+  if cur_line ~= current_start then
+    vim.api.nvim_win_set_cursor(0, {current_start, 0})
+    return
+  end
+
+  -- Otherwise, scan upward to find the previous paragraph
+  local lnum = current_start - 1
+  while lnum > 0 do
+    local line = vim.fn.getline(lnum)
+    if not line:match("^%s*$") then
+      local prev_start = find_paragraph_start(lnum)
+      vim.api.nvim_win_set_cursor(0, {prev_start, 0})
+      return
+    end
+    lnum = lnum - 1
+  end
+
+  -- If no previous paragraph, go to the first non-blank line
+  for i = 1, current_start - 1 do
+    if not vim.fn.getline(i):match("^%s*$") then
+      vim.api.nvim_win_set_cursor(0, {i, 0})
+      return
+    end
   end
 end
 
-keymap.set({'n', 'v', 'i'}, '<C-Up>', jump_to_paragraph_start, { desc = 'move up one paragraph' })
--- keymap.set('i', '<C-Up>', '<C-o>{', { desc = 'move up one paragraph' })
-keymap.set({'n', 'v', 'i'}, '<C-Down>', jump_to_paragraph_end, { desc = 'move down one paragraph' })
--- keymap.set('i', '<C-Down>', '<C-o>}', { desc = 'move down one paragraph' })
+keymap.set({'n', 'v', 'i'}, '<C-Up>', jump_to_previous_paragraph, { desc = 'move up one paragraph' })
+keymap.set({'n', 'v', 'i'}, '<C-Down>', jump_to_next_paragraph, { desc = 'move down one paragraph' })
 keymap.set('n', '<S-Down>', '<Down>', { silent = true })
 keymap.set('n', '<S-Up>', '<Up>', { silent = true })
 
@@ -226,14 +274,16 @@ keymap.set('n', "A", [[ getline('.') == '' ? 'cc' : 'A' ]], { expr = true, norem
 -- map <C-T> to open a new terminal
 keymap.set('n', '<C-t>', ':term<CR>i', { noremap = true, desc = 'open a new terminal' })
 
-vim.keymap.set({'n', 'v'}, '<D-Left>', '<C-w>h', { noremap = true, silent = true })
-vim.keymap.set({'i', 't'}, '<D-Left>', '<esc><C-w>h', { noremap = true, silent = true })
-vim.keymap.set({'n', 'v'}, '<D-Right>', '<C-w>l', { noremap = true, silent = true })
-vim.keymap.set({'i', 't'}, '<D-Right>', '<esc><C-w>l', { noremap = true, silent = true })
-vim.keymap.set({'n', 'v'}, '<D-Up>', '<C-w>k', { noremap = true, silent = true })
-vim.keymap.set({'i', 't'}, '<D-Up>', '<esc><C-w>k', { noremap = true, silent = true })
-vim.keymap.set({'n', 'v'}, '<D-Down>', '<C-w>j', { noremap = true, silent = true })
-vim.keymap.set({'i', 't'}, '<D-Down>', '<esc><C-w>j', { noremap = true, silent = true })
+keymap.set({'n', 'v'}, '<D-Left>', '<C-w>h', { noremap = true, silent = true })
+keymap.set({'i', 't'}, '<D-Left>', '<esc><C-w>h', { noremap = true, silent = true })
+keymap.set({'n', 'v'}, '<D-Right>', '<C-w>l', { noremap = true, silent = true })
+keymap.set({'i', 't'}, '<D-Right>', '<esc><C-w>l', { noremap = true, silent = true })
+keymap.set({'n', 'v'}, '<D-Up>', '<C-w>k', { noremap = true, silent = true })
+keymap.set({'i', 't'}, '<D-Up>', '<esc><C-w>k', { noremap = true, silent = true })
+keymap.set({'n', 'v'}, '<D-Down>', '<C-w>j', { noremap = true, silent = true })
+keymap.set({'i', 't'}, '<D-Down>', '<esc><C-w>j', { noremap = true, silent = true })
+
+vim.keymap.set({ 'n', 'x' }, 's', '<Nop>')
 
 -- smart Home key
 vim.keymap.set({ 'n', 'v'}, '<Home>', function()
