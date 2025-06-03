@@ -32,9 +32,6 @@ require('mini.indentscope').setup({
     delay = 100,
     animation = require('mini.indentscope').gen_animation.none(),
   },
-  options = {
-    try_as_border = true,
-  },
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
