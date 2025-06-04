@@ -11,3 +11,7 @@ vim.lsp.enable('lua_ls')
 vim.lsp.enable('nixd')
 vim.lsp.enable('marksman')
 vim.lsp.enable('texlab')
+
+vim.lsp.config('clangd', {
+  cmd = { "clangd", "--clang-tidy" },
+})
