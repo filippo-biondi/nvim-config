@@ -105,7 +105,8 @@ with final.pkgs.lib; let
     bufferline-nvim
     conform-nvim
     mini-move
-    mini-pairs
+    # mini-pairs
+    nvim-autopairs
     mini-splitjoin
     mini-surround
     mini-bufremove
