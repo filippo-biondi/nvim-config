@@ -47,9 +47,9 @@ with final.pkgs.lib; let
     nvim-lspconfig
     nvim-dap
     nvim-dap-python
-    custom-pkgs.nvim-dap-view
+    nvim-dap-view
     nvim-dap-virtual-text
-    custom-pkgs.hydra
+    hydra-nvim
     nvim-nio
     noice-nvim
     nui-nvim
@@ -101,7 +101,7 @@ with final.pkgs.lib; let
     cmp-dap
     nvim-cmp
     leap-nvim
-    custom-pkgs.hardtime-nvim
+    hardtime-nvim
     bufferline-nvim
     conform-nvim
     mini-move
@@ -130,8 +130,6 @@ with final.pkgs.lib; let
     bash-language-server
     dockerfile-language-server-nodejs
     docker-compose-language-service
-    custom-pkgs.foam-lsp
-    custom-pkgs.hydra-lsp
     custom-pkgs.dts-lsp
     marksman
     texlab

@@ -1,6 +1,6 @@
 {
   pkgs
-}: pkgs.rustPlatform.buildRustPackage ({
+}: pkgs.rustPlatform.buildRustPackage {
   pname = "dts-lsp";
   version = "0.1.5-unstable-2025-03-24";
 
@@ -21,4 +21,4 @@
    maintainers = with pkgs.lib.maintainers; [ filippo-biondi ];
    platforms = with pkgs.lib.platforms; darwin ++ linux;
   };
-})
+}
