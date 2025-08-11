@@ -135,6 +135,7 @@ with final.pkgs.lib; let
     texlab
     sqlite
     black
+    vue-language-server
   ];
 
 in {
