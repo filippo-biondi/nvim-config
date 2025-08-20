@@ -136,6 +136,7 @@ with final.pkgs.lib; let
     sqlite
     black
     vue-language-server
+    vtsls
   ];
 
 in {
