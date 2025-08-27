@@ -87,7 +87,7 @@ with final.pkgs.lib; let
     nvim-web-devicons
     vim-repeat
     which-key-nvim
-    copilot-vim
+    # copilot-vim
     vimtex
     nvim-lastplace
     neorg
