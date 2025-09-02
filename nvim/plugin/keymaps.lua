@@ -256,7 +256,7 @@ keymap.set('n', '<S-Up>', '<Up>', { silent = true })
 keymap.set({'i', 't'}, '<C-BS>', '<C-w>', { desc = 'delete untill stard of word' })
 keymap.set({'i', 't'}, '<S-DEL>', '<DEL>', { desc = 'delete untill end of word' })
 keymap.set({'i', 't'}, '<C-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
-keymap.set({'i', 't'}, '<C-S-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
+keymap.set({'i', 't'}, '<C-S-DEL>', '<DEL><C-o>dw', { desc = 'delete untill end of word' })
 
 keymap.set('n', '<ESC><ESC>', ':noh | nohlsearch<CR>', { desc = 'remove search highlight', silent = true })
 
