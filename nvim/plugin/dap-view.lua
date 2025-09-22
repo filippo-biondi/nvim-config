@@ -10,15 +10,6 @@ dap_view.setup({
   winbar = {
     sections = { "repl", "watches", "scopes", "breakpoints", "exceptions", "threads" },
     default_section = "repl",
-    headers = {
-      breakpoints = "[B]reakpoints",
-      scopes = "[S]copes",
-      exceptions = "[E]xceptions",
-      watches = "[W]atches",
-      threads = "[T]hreads",
-      repl = "[R]EPL",
-      console = "[C]onsole",
-    },
     controls = {
       enabled = true,
     },
