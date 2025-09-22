@@ -114,6 +114,7 @@ with final.pkgs.lib; let
     mini-icons
     mini-indentscope
     mini-trailspace
+    custom-pkgs.gemini-cli-nvim
   ];
 
   extraPackages = with pkgs; [
@@ -137,6 +138,7 @@ with final.pkgs.lib; let
     black
     vue-language-server
     vtsls
+    gemini-cli
   ];
 
 in {

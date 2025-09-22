@@ -14,39 +14,14 @@
     };
   };
 
-  # hydra = pkgs.vimUtils.buildVimPlugin {
-  #   pname = "hydra.nvim";
-  #   version = "2025-05-04";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "nvimtools";
-  #     repo = "hydra.nvim";
-  #     rev = "8c4a9f621ec7cdc30411a1f3b6d5eebb12b469dc";
-  #     sha256 = "sha256-lYwl4wrVsCq1JVbkDyq1lB1hBGrz+XtQ9DQWIQ6lkyg=";
-  #   };
-  #   meta.homepage = "https://github.com/nvimtools/hydra.nvim/";
-  #   meta.hydraPlatforms = [ ];
-  # };
-
-  # nvim-dap-view = pkgs.vimUtils.buildVimPlugin {
-  #   pname = "nvim-dap-view";
-  #   version = "2025-05-16";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "igorlfs";
-  #     repo = "nvim-dap-view";
-  #     rev = "d76741a718a551125f2556f63f6757916291706d";
-  #     sha256 = "sha256-ytFvjvIYno5oPsZsCexvhLs4WF189NBhids+h/Nksns=";
-  #   };
-  #   doCheck = false;
-  # };
-
-  # hardtime-nvim = pkgs.vimUtils.buildVimPlugin rec {
-  #   pname = "hardtime.nvim";
-  #   version = "1.0.0";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "m4xshen";
-  #     repo = "hardtime.nvim";
-  #     rev = "v${version}";
-  #     sha256 = "sha256-ureji2SAdHFxxBkLx9nN0PLH+7Q8AOO4OdMbUKuZby8=";
-  #   };
-  # };
+  gemini-cli-nvim = pkgs.vimUtils.buildVimPlugin {
+    pname = "gemini-cli-nvim";
+    version = "1.2.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "JonRoosevelt";
+      repo = "gemini-cli.nvim";
+      rev = "887fc46979e0a1e4e05035bcc83deb76164e91a2";
+      sha256 = "sha256-47qd9kHXyUFfgCePwYHZ4GwvezOhLfbYcy57OpMYlQU=";
+    };
+  };
 }
