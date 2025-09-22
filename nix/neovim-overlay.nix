@@ -92,7 +92,8 @@ with final.pkgs.lib; let
     nvim-lastplace
     neorg
     dial-nvim
-    render-markdown-nvim
+    # render-markdown-nvim
+    markdown-preview-nvim
     nabla-nvim
     custom-pkgs.stay-centered-nvim
     auto-save-nvim
