@@ -10,7 +10,8 @@ vim.lsp.enable('nixd')
 vim.lsp.enable('marksman')
 vim.lsp.enable('texlab')
 
-local vue_language_server_path = vim.fn.system("dirname $(which vue-language-server)"):gsub('%\n$', '') .. "/../lib/node_modules/@vue/language-server"
+local vue_language_server_path = vim.fs.dirname(vim.fn.exepath("vue-language-server")) ..
+"/../lib/language-tools/packages/language-server/node_modules/@vue/typescript-plugin"
 local vue_plugin = {
   name = '@vue/typescript-plugin',
   location = vue_language_server_path,
