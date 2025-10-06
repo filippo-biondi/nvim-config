@@ -130,7 +130,7 @@ with final.pkgs.lib; let
     python3Packages.pylatexenc
     nerd-fonts.jetbrains-mono
     bash-language-server
-    dockerfile-language-server-nodejs
+    dockerfile-language-server
     docker-compose-language-service
     custom-pkgs.dts-lsp
     marksman
@@ -139,6 +139,7 @@ with final.pkgs.lib; let
     black
     vue-language-server
     vtsls
+    java-language-server
     gemini-cli
   ];
 
