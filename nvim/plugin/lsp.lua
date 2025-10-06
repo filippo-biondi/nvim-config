@@ -9,6 +9,7 @@ vim.lsp.enable('lua_ls')
 vim.lsp.enable('nixd')
 vim.lsp.enable('marksman')
 vim.lsp.enable('texlab')
+vim.lsp.enable('java_language_server')
 
 local vue_language_server_path = vim.fs.dirname(vim.fn.exepath("vue-language-server")) ..
 "/../lib/language-tools/packages/language-server/node_modules/@vue/typescript-plugin"
