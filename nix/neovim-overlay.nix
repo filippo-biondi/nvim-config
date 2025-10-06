@@ -115,6 +115,7 @@ with final.pkgs.lib; let
     mini-icons
     mini-indentscope
     mini-trailspace
+    nvim-jdtls
     custom-pkgs.gemini-cli-nvim
   ];
 
@@ -139,7 +140,7 @@ with final.pkgs.lib; let
     black
     vue-language-server
     vtsls
-    java-language-server
+    jdt-language-server
     gemini-cli
   ];
 
