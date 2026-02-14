@@ -2,11 +2,11 @@
 {inputs}: final: prev:
 with final.pkgs.lib; let
   pkgs = import inputs.nixpkgs {
-    inherit (final) system;
+    system = final.stdenv.hostPlatform.system;
     config.allowUnfree = true;
   };
 
-  custom-pkgs = import ./custom-pkgs { inherit pkgs; };
+  # custom-pkgs = import ./custom-pkgs { inherit pkgs; };
 
   # This is the helper function that builds the Neovim derivation.
   mkNeovim = pkgs.callPackage ./mkNeovim.nix { inherit pkgs; };
@@ -28,18 +28,18 @@ with final.pkgs.lib; let
     nvim-treesitter.withAllGrammars
     nvim-treesitter-context
     nvim-treesitter-textobjects
-    nvim-treesitter-parsers.foam
-    nvim-treesitter-parsers.python
-    nvim-treesitter-parsers.markdown
-    nvim-treesitter-parsers.markdown_inline
-    nvim-treesitter-parsers.latex
-    nvim-treesitter-parsers.html
-    nvim-treesitter-parsers.bash
-    nvim-treesitter-parsers.lua
-    nvim-treesitter-parsers.regex
-    nvim-treesitter-parsers.json
-    nvim-treesitter-parsers.dockerfile
-    nvim-treesitter-parsers.devicetree
+    # nvim-treesitter-parsers.foam
+    # nvim-treesitter-parsers.python
+    # nvim-treesitter-parsers.markdown
+    # nvim-treesitter-parsers.markdown_inline
+    # nvim-treesitter-parsers.latex
+    # nvim-treesitter-parsers.html
+    # nvim-treesitter-parsers.bash
+    # nvim-treesitter-parsers.lua
+    # nvim-treesitter-parsers.regex
+    # nvim-treesitter-parsers.json
+    # nvim-treesitter-parsers.dockerfile
+    # nvim-treesitter-parsers.devicetree
     friendly-snippets
     blink-cmp
     blink-compat
@@ -95,7 +95,7 @@ with final.pkgs.lib; let
     # render-markdown-nvim
     markdown-preview-nvim
     nabla-nvim
-    custom-pkgs.stay-centered-nvim
+    # custom-pkgs.stay-centered-nvim
     auto-save-nvim
     nvim-osc52
     nvim-colorizer-lua
@@ -116,7 +116,7 @@ with final.pkgs.lib; let
     mini-indentscope
     mini-trailspace
     nvim-jdtls
-    custom-pkgs.gemini-cli-nvim
+    # custom-pkgs.gemini-cli-nvim
   ];
 
   extraPackages = with pkgs; [
@@ -133,12 +133,12 @@ with final.pkgs.lib; let
     bash-language-server
     dockerfile-language-server
     docker-compose-language-service
-    custom-pkgs.dts-lsp
+    # custom-pkgs.dts-lsp
     marksman
     texlab
     sqlite
     black
-    vue-language-server
+    # vue-language-server
     vtsls
     jdt-language-server
     gemini-cli

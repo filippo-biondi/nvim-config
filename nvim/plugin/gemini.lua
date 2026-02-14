@@ -1,3 +1,3 @@
-require('gemini').setup({
-  split_direction = "vertical"
-})
+-- require('gemini').setup({
+--   split_direction = "vertical"
+-- })
