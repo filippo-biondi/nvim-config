@@ -248,24 +248,27 @@ local function jump_to_previous_paragraph()
   end
 end
 
-keymap.set({'n', 'v', 'i'}, '<C-Up>', jump_to_previous_paragraph, { desc = 'move up one paragraph' })
-keymap.set({'n', 'v', 'i'}, '<C-Down>', jump_to_next_paragraph, { desc = 'move down one paragraph' })
+keymap.set({'n', 'v', 'i'}, '<A-Up>', jump_to_previous_paragraph, { desc = 'move up one paragraph' })
+keymap.set({'n', 'v', 'i'}, '<A-Down>', jump_to_next_paragraph, { desc = 'move down one paragraph' })
 keymap.set('n', '<S-Down>', '<Down>', { silent = true })
 keymap.set('n', '<S-Up>', '<Up>', { silent = true })
 
-keymap.set({'i', 't'}, '<C-BS>', '<C-w>', { desc = 'delete untill stard of word' })
+keymap.set({'n', 'v', 'i'}, '<D-Left>', '<Home>', { silent = true })
+keymap.set({'n', 'v', 'i'}, '<D-Right>', '<End>', { silent = true })
+
+keymap.set({'i', 't'}, '<M-BS>', '<C-w>', { desc = 'delete untill stard of word' })
 keymap.set({'i', 't'}, '<S-DEL>', '<DEL>', { desc = 'delete untill end of word' })
-keymap.set({'i', 't'}, '<C-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
-keymap.set({'i', 't'}, '<C-S-DEL>', '<DEL><C-o>dw', { desc = 'delete untill end of word' })
+keymap.set({'i', 't'}, '<A-DEL>', '<C-o>dw', { desc = 'delete untill end of word' })
+keymap.set({'i', 't'}, '<A-S-DEL>', '<DEL><C-o>dw', { desc = 'delete untill end of word' })
 
 keymap.set('n', '<ESC><ESC>', ':noh | nohlsearch<CR>', { desc = 'remove search highlight', silent = true })
 
-keymap.set('n', '<C-S-c>', require('osc52').copy_operator, {expr = true})
-keymap.set('n', '<C-S-c><C-S-c>', '<C-S-c>_', {remap = true})
-keymap.set('v', '<C-S-c>', require('osc52').copy_visual)
+keymap.set('n', '<D-c>', require('osc52').copy_operator, {expr = true})
+keymap.set('n', '<D-c><D-c>', '<D-c>_', {remap = true})
+keymap.set('v', '<D-c>', require('osc52').copy_visual)
 
-keymap.set({'n', 'v'}, '<C-Left>', 'b', { desc = 'move one wold left' })
-keymap.set({'n', 'v'}, '<C-Right>', 'w', { desc = 'move one wold left' })
+keymap.set({'n', 'v'}, '<A-Left>', 'b', { desc = 'move one wold left' })
+keymap.set({'n', 'v'}, '<A-Right>', 'w', { desc = 'move one wold left' })
 
 keymap.set({'i', 't'}, '<C-w>', '<ESC><C-w>', { noremap = true, silent = true })
 
@@ -274,14 +277,14 @@ keymap.set('n', "A", [[ getline('.') == '' ? 'cc' : 'A' ]], { expr = true, norem
 -- map <C-T> to open a new terminal
 keymap.set('n', '<C-t>', ':term<CR>i', { noremap = true, desc = 'open a new terminal' })
 
-keymap.set({'n', 'v'}, '<D-Left>', '<C-w>h', { noremap = true, silent = true })
-keymap.set({'i', 't'}, '<D-Left>', '<esc><C-w>h', { noremap = true, silent = true })
-keymap.set({'n', 'v'}, '<D-Right>', '<C-w>l', { noremap = true, silent = true })
-keymap.set({'i', 't'}, '<D-Right>', '<esc><C-w>l', { noremap = true, silent = true })
-keymap.set({'n', 'v'}, '<D-Up>', '<C-w>k', { noremap = true, silent = true })
-keymap.set({'i', 't'}, '<D-Up>', '<esc><C-w>k', { noremap = true, silent = true })
-keymap.set({'n', 'v'}, '<D-Down>', '<C-w>j', { noremap = true, silent = true })
-keymap.set({'i', 't'}, '<D-Down>', '<esc><C-w>j', { noremap = true, silent = true })
+keymap.set({'n', 'v'}, '<C-Left>', '<C-w>h', { noremap = true, silent = true })
+keymap.set({'i', 't'}, '<C-Left>', '<esc><C-w>h', { noremap = true, silent = true })
+keymap.set({'n', 'v'}, '<C-Right>', '<C-w>l', { noremap = true, silent = true })
+keymap.set({'i', 't'}, '<C-Right>', '<esc><C-w>l', { noremap = true, silent = true })
+keymap.set({'n', 'v'}, '<C-Up>', '<C-w>k', { noremap = true, silent = true })
+keymap.set({'i', 't'}, '<C-Up>', '<esc><C-w>k', { noremap = true, silent = true })
+keymap.set({'n', 'v'}, '<C-Down>', '<C-w>j', { noremap = true, silent = true })
+keymap.set({'i', 't'}, '<C-Down>', '<esc><C-w>j', { noremap = true, silent = true })
 
 vim.keymap.set({ 'n', 'x' }, 's', '<Nop>')
 
