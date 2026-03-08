@@ -28,18 +28,16 @@ with final.pkgs.lib; let
     nvim-treesitter.withAllGrammars
     nvim-treesitter-context
     nvim-treesitter-textobjects
-    # nvim-treesitter-parsers.foam
-    # nvim-treesitter-parsers.python
-    # nvim-treesitter-parsers.markdown
-    # nvim-treesitter-parsers.markdown_inline
-    # nvim-treesitter-parsers.latex
-    # nvim-treesitter-parsers.html
-    # nvim-treesitter-parsers.bash
-    # nvim-treesitter-parsers.lua
-    # nvim-treesitter-parsers.regex
-    # nvim-treesitter-parsers.json
-    # nvim-treesitter-parsers.dockerfile
-    # nvim-treesitter-parsers.devicetree
+    nvim-treesitter-parsers.python
+    nvim-treesitter-parsers.markdown
+    nvim-treesitter-parsers.markdown_inline
+    nvim-treesitter-parsers.latex
+    nvim-treesitter-parsers.html
+    nvim-treesitter-parsers.bash
+    nvim-treesitter-parsers.lua
+    nvim-treesitter-parsers.regex
+    nvim-treesitter-parsers.json
+    nvim-treesitter-parsers.dockerfile
     friendly-snippets
     blink-cmp
     blink-compat
@@ -87,15 +85,12 @@ with final.pkgs.lib; let
     nvim-web-devicons
     vim-repeat
     which-key-nvim
-    # copilot-vim
     vimtex
     nvim-lastplace
     neorg
     dial-nvim
-    # render-markdown-nvim
     markdown-preview-nvim
     nabla-nvim
-    # custom-pkgs.stay-centered-nvim
     auto-save-nvim
     nvim-osc52
     nvim-colorizer-lua
@@ -106,7 +101,6 @@ with final.pkgs.lib; let
     bufferline-nvim
     conform-nvim
     mini-move
-    # mini-pairs
     nvim-autopairs
     mini-splitjoin
     mini-surround
@@ -116,7 +110,6 @@ with final.pkgs.lib; let
     mini-indentscope
     mini-trailspace
     nvim-jdtls
-    # custom-pkgs.gemini-cli-nvim
   ];
 
   extraPackages = with pkgs; [
