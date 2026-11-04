@@ -47,7 +47,6 @@ with lib;
       # set to `true`, it is installed in the 'opt' packpath, and can be lazy loaded with
       # ':packadd! {plugin-name}
       optional = false;
-      runtime = {};
     };
 
     externalPackages = extraPackages ++ (optionals withSqlite [pkgs.sqlite]);
@@ -61,13 +60,6 @@ with lib;
         else {plugin = x;}
       ))
     plugins;
-
-    # This nixpkgs util function creates an attrset
-    # that pkgs.wrapNeovimUnstable uses to configure the Neovim build.
-    neovimConfig = pkgs-wrapNeovim.neovimUtils.makeNeovimConfig {
-      inherit extraPython3Packages withPython3 withRuby withNodeJs viAlias vimAlias;
-      plugins = normalizedPlugins;
-    };
 
     # This uses the ignoreConfigRegexes list to filter
     # the nvim directory
@@ -157,7 +149,7 @@ with lib;
 
     # Add arguments to the Neovim wrapper script
     extraMakeWrapperArgs = let
-      sqliteLibExt = if stdenv.isDarwin then ".dylib" else ".so";
+      sqliteLibExt = if stdenv.hostPlatform.isDarwin then ".dylib" else ".so";
       sqlietLibPath = "${pkgs.sqlite.out}/lib/libsqlite3${sqliteLibExt}";
     in
     builtins.concatStringsSep " " (
@@ -186,19 +178,17 @@ with lib;
       ''--suffix LUA_PATH ";" "${concatMapStringsSep ";" luaPackages.getLuaPath resolvedExtraLuaPackages}"'';
 
     # wrapNeovimUnstable is the nixpkgs utility function for building a Neovim derivation.
-    neovim-wrapped = pkgs-wrapNeovim.wrapNeovimUnstable neovim-unwrapped (neovimConfig
-      // {
-        luaRcContent = initLua;
-        wrapperArgs =
-          escapeShellArgs neovimConfig.wrapperArgs
-          + " "
-          + extraMakeWrapperArgs
-          + " "
-          + extraMakeWrapperLuaCArgs
-          + " "
-          + extraMakeWrapperLuaArgs;
-        wrapRc = wrapRc;
-      });
+    neovim-wrapped = pkgs-wrapNeovim.wrapNeovimUnstable neovim-unwrapped {
+      inherit extraPython3Packages withPython3 withRuby withNodeJs viAlias vimAlias wrapRc;
+      plugins = normalizedPlugins;
+      luaRcContent = initLua;
+      wrapperArgs =
+        extraMakeWrapperArgs
+        + " "
+        + extraMakeWrapperLuaCArgs
+        + " "
+        + extraMakeWrapperLuaArgs;
+    };
 
     isCustomAppName = appName != null && appName != "nvim";
   in

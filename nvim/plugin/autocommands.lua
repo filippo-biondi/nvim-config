@@ -93,7 +93,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- keymap.set('n', '<space>dd', vim.lsp.buf.document_symbol, desc('lsp [dd]ocument symbol'))
     keymap.set('n', '<space>ca', vim.lsp.buf.code_action, desc('[lsp] code action'))
     keymap.set('n', '<space>ce', vim.lsp.codelens.run, desc('[lsp] run code lens'))
-    keymap.set('n', '<space>cr', vim.lsp.codelens.refresh, desc('lsp [c]ode lenses [r]efresh'))
+    keymap.set('n', '<space>cr', function()
+      vim.lsp.codelens.enable(true, { bufnr = bufnr })
+    end, desc('lsp [c]ode lenses [r]efresh'))
     keymap.set('n', 'gr', vim.lsp.buf.references, desc('lsp [g]et [r]eferences'))
     keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
@@ -105,20 +107,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
       end, desc('[lsp] toggle inlay hints'))
     end
 
-    -- Auto-refresh code lenses
+    -- Show code lenses, which Neovim keeps refreshed
     if not client then
       return
     end
-    local group = api.nvim_create_augroup(string.format('lsp-%s-%s', bufnr, client.id), {})
     if client.server_capabilities.codeLensProvider then
-      vim.api.nvim_create_autocmd({ 'InsertLeave', 'BufWritePost', 'TextChanged' }, {
-        group = group,
-        callback = function()
-          vim.lsp.codelens.refresh { bufnr = bufnr }
-        end,
-        buffer = bufnr,
-      })
-      vim.lsp.codelens.refresh { bufnr = bufnr }
+      vim.lsp.codelens.enable(true, { bufnr = bufnr })
     end
   end,
 })
