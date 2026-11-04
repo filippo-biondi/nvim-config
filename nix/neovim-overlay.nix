@@ -134,7 +134,6 @@ with final.pkgs.lib; let
     # vue-language-server
     vtsls
     jdt-language-server
-    gemini-cli
   ];
 
 in {
