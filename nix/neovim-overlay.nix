@@ -1,10 +1,9 @@
 # This overlay, when applied to nixpkgs, adds the final neovim derivation to nixpkgs.
 {inputs}: final: prev:
 with final.pkgs.lib; let
-  pkgs = import inputs.nixpkgs {
-    system = final.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-  };
+  # The package set this overlay is applied to: importing nixpkgs again would
+  # make every user evaluate a second one
+  pkgs = final;
 
   # custom-pkgs = import ./custom-pkgs { inherit pkgs; };
 
